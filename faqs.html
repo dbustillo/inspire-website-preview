@@ -36,6 +36,102 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What exactly does Inspire do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We're a technology-first 3PL: warehousing, fulfillment, and delivery across the Philippines, run on Fusion, our proprietary OMS + WMS + ERP. We store, pick, pack, and deliver your orders across every marketplace — you run the brand, we run the operations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Aren't you just another warehouse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. We're a technology-first 3PL — warehousing and fulfillment are the services, and the system is the product. Warehousing is one module of a full operating system: the platform enforces inventory truth, cut-offs, and exception ownership, and the floor executes to it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which channels do you integrate with?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shopee, Lazada, TikTok Shop, Shopify, Zalora, and Facebook — six channels synced to one inventory truth, live. The same stock number across every channel, all the time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the same-day dispatch cutoff?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Orders in by 4:00 PM are picked, packed, and handed to the courier the same business day. The cut-off is enforced by the system, not negotiated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast do you process inbound stock?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Receiving, QC, and put-away within 24–48 hours of arrival, with expiry and batch details recorded in Fusion. Your stock is sellable, not sitting on a dock."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do returns work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We receive, inspect, document, and process returns within 24–48 hours depending on volume — with photo and video evidence attached. Disputes close on record, not opinion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does COD work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We collect from couriers, reconcile in Fusion, and remit weekly — your cash flow stays smooth and the numbers reconcile against the orders they belong to."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Fusion included, or do we pay for the software?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fusion is our own product — enterprise-grade OMS + WMS + ERP, and it's a paid platform. You can license it standalone, or bundle it with our warehousing and fulfillment for a lower platform rate. Start with control through Fusion; add reliability through execution when you want it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What visibility do we actually get?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rack-level inventory, real-time order status, performance reports, and TrueTrace — photo and video evidence on every fulfilled order. Virtual warehouse access included. You can audit us any day of the week."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is Inspire NOT for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Companies that just want cheap storage space, or businesses not really operating in e-commerce. We're built for brands that are selling and ready to scale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do we start?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Schedule a 30-minute discovery call. Tell us what you sell and your volumes; we'll show you exactly how your orders would run, then guide onboarding step by step."
+      }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -784,6 +880,10 @@ footer .container{position:relative;z-index:1}
 .foot-brand{max-width:320px}
 .foot-logo{height:26px;width:auto;margin-bottom:18px}
 .foot-geo{font:400 13.5px/1.65 var(--in);color:rgba(205,217,232,.66);letter-spacing:0;text-transform:none}
+.foot-contact{font-style:normal;margin-top:18px;display:flex;flex-direction:column;gap:5px;font:400 13px/1.6 var(--in)}
+.foot-contact .fc-addr{color:rgba(205,217,232,.55)}
+.foot-contact a{color:rgba(205,217,232,.8);text-decoration:none}
+.foot-contact a:hover{color:#fff}
 .foot-h{font:600 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
 .foot-list{list-style:none;display:flex;flex-direction:column;gap:12px}
 .foot-list a{font:400 14px/1.35 var(--in);color:rgba(205,217,232,.82);text-decoration:none;transition:color .25s ease}
@@ -1348,6 +1448,10 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
 .trust-list{list-style:none;margin-top:24px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:11px}
 .trust-list li{display:flex;gap:11px;align-items:center;font:500 13px/1.4 var(--in);color:var(--ink-body)}
 .trust-list svg{flex:0 0 17px;width:17px;height:17px;stroke:var(--blue);fill:none;stroke-width:2.2}
+.ca-contact{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+.ca-contact address{font-style:normal;display:flex;flex-direction:column;gap:7px;margin-top:9px;font:400 14px/1.55 var(--in);color:var(--ink-body)}
+.ca-contact address a{color:var(--blue);text-decoration:none;font-weight:500}
+.ca-contact address a:hover{text-decoration:underline}
 @media (max-width:820px){.contact-grid{grid-template-columns:1fr}.contact-aside{position:static;order:2}}
 
 /* ============================ blog ============================ */
@@ -1643,6 +1747,11 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
       <div class="foot-brand">
         <img class="foot-logo" src="logo-white.svg" alt="Inspire Solutions" width="588" height="130">
         <p class="foot-geo">The Philippines&rsquo; modular e-commerce backbone &mdash; your go-to tech-driven warehousing and fulfillment partner.</p>
+        <address class="foot-contact">
+          <span class="fc-addr">Warehouse 5, C Teknik Industrial, 143 P. Gregorio Street, Valenzuela, Metro Manila 1442</span>
+          <a href="tel:+639457046910">+63 945 704 6910</a>
+          <a href="mailto:support@inspiresolutions.asia">support@inspiresolutions.asia</a>
+        </address>
       </div>
       <nav class="foot-col" aria-label="Services">
         <p class="foot-h">Services</p>

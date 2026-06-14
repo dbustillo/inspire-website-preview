@@ -764,6 +764,10 @@ footer .container{position:relative;z-index:1}
 .foot-brand{max-width:320px}
 .foot-logo{height:26px;width:auto;margin-bottom:18px}
 .foot-geo{font:400 13.5px/1.65 var(--in);color:rgba(205,217,232,.66);letter-spacing:0;text-transform:none}
+.foot-contact{font-style:normal;margin-top:18px;display:flex;flex-direction:column;gap:5px;font:400 13px/1.6 var(--in)}
+.foot-contact .fc-addr{color:rgba(205,217,232,.55)}
+.foot-contact a{color:rgba(205,217,232,.8);text-decoration:none}
+.foot-contact a:hover{color:#fff}
 .foot-h{font:600 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
 .foot-list{list-style:none;display:flex;flex-direction:column;gap:12px}
 .foot-list a{font:400 14px/1.35 var(--in);color:rgba(205,217,232,.82);text-decoration:none;transition:color .25s ease}
@@ -1328,6 +1332,10 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
 .trust-list{list-style:none;margin-top:24px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:11px}
 .trust-list li{display:flex;gap:11px;align-items:center;font:500 13px/1.4 var(--in);color:var(--ink-body)}
 .trust-list svg{flex:0 0 17px;width:17px;height:17px;stroke:var(--blue);fill:none;stroke-width:2.2}
+.ca-contact{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+.ca-contact address{font-style:normal;display:flex;flex-direction:column;gap:7px;margin-top:9px;font:400 14px/1.55 var(--in);color:var(--ink-body)}
+.ca-contact address a{color:var(--blue);text-decoration:none;font-weight:500}
+.ca-contact address a:hover{text-decoration:underline}
 @media (max-width:820px){.contact-grid{grid-template-columns:1fr}.contact-aside{position:static;order:2}}
 
 /* ============================ blog ============================ */
@@ -1623,6 +1631,11 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
       <div class="foot-brand">
         <img class="foot-logo" src="logo-white.svg" alt="Inspire Solutions" width="588" height="130">
         <p class="foot-geo">The Philippines&rsquo; modular e-commerce backbone &mdash; your go-to tech-driven warehousing and fulfillment partner.</p>
+        <address class="foot-contact">
+          <span class="fc-addr">Warehouse 5, C Teknik Industrial, 143 P. Gregorio Street, Valenzuela, Metro Manila 1442</span>
+          <a href="tel:+639457046910">+63 945 704 6910</a>
+          <a href="mailto:support@inspiresolutions.asia">support@inspiresolutions.asia</a>
+        </address>
       </div>
       <nav class="foot-col" aria-label="Services">
         <p class="foot-h">Services</p>
