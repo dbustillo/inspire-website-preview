@@ -1104,14 +1104,14 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
 @keyframes fznavpulse{to{box-shadow:0 15px 42px -4px rgba(39,183,214,.98),inset 0 0 0 1px rgba(255,255,255,.12)}}
 .fz-hint{text-align:center;margin-top:30px;font:600 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:rgba(231,239,248,.5)}
 @media (max-width:760px){
-  /* enlarge the live-screen carousel so the center dashboard nearly fills the phone; side cards just peek */
-  .fz-scatter{height:clamp(360px,86vw,470px);perspective:1100px;max-width:100%}
-  .fz-card{width:min(92vw,430px)}
-  .fz-card[data-pos="0"]{--sc:1.04}
-  .fz-card[data-pos="1"]{--tx:118px;--ry:-18deg;--sc:.5}
-  .fz-card[data-pos="3"]{--tx:-118px;--ry:18deg;--sc:.5}
-  .fz-card[data-pos="2"]{--tz:-92px;--sc:.4}
-  .fz-nav{width:44px;height:44px}.fz-prev{left:2px}.fz-next{right:2px}
+  /* compact the live-screen carousel on phones — smaller footprint, center card still leads, side cards peek */
+  .fz-scatter{height:clamp(290px,68vw,380px);perspective:1100px;max-width:100%;margin-top:34px}
+  .fz-card{width:min(83vw,360px)}
+  .fz-card[data-pos="0"]{--sc:1}
+  .fz-card[data-pos="1"]{--tx:100px;--ry:-18deg;--sc:.46}
+  .fz-card[data-pos="3"]{--tx:-100px;--ry:18deg;--sc:.46}
+  .fz-card[data-pos="2"]{--tz:-92px;--sc:.36}
+  .fz-nav{width:42px;height:42px}.fz-prev{left:0}.fz-next{right:0}
 }
 /* section header alignment helpers (left/right rhythm + centered) */
 .sec-right .kicker{justify-content:flex-end}
@@ -1455,8 +1455,9 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
 @media (max-width:720px){.post-grid{grid-template-columns:1fr}.cat-pills{justify-content:flex-start}}
 @media (min-width:721px) and (max-width:980px){.post-grid{grid-template-columns:repeat(2,1fr)}}
 
-/* diagrams: desktop SVG by default; a dedicated bigger mobile SVG swaps in on phones */
-.dvg-m{display:none}
+/* diagrams: desktop SVG by default; a dedicated bigger mobile SVG swaps in on phones
+   (scoped + !important to beat the generic .flow-diagram svg{display:block} rule) */
+.flow-diagram .dvg-m{display:none}
 /* ---------- mobile optimization pass — inner pages (phones only; desktop unchanged) ---------- */
 @media (max-width:760px){
   /* swap the wide desktop diagrams for the portrait, larger-icon mobile versions */
@@ -1469,7 +1470,10 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
   .ph-fusion.page-hero{min-height:64svh}
   /* split / callout-shot sections (about-us, expanding, warehousing): keep images + floating callouts inside the viewport */
   .split-copy,.split-img,.callout-shot,.cs-frame{min-width:0;max-width:100%}
-  .split-img img,.cs-frame img{width:100%;height:auto;max-width:100%}
+  /* split images: drop the 4:3 letterbox so the frame hugs the real image — no light band, clean rounded bubble that fits the phone */
+  .split-img{aspect-ratio:auto;height:auto;background:transparent}
+  .split-img img{position:static;inset:auto;width:100%;height:auto;max-width:100%;display:block;object-fit:contain}
+  .cs-frame img{width:100%;height:auto;max-width:100%}
   .callout-shot{margin-top:18px}
   .callout-shot .callout{position:static;max-width:100%;inset:auto;margin:12px 0 0;transform:none;opacity:1}
   /* why-inspire trusted-partners marquee: fixed tile size (kills the width:100% balloon) */
@@ -1481,6 +1485,11 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
   /* blog inline CTA: stack both buttons full-width */
   .art-cta .ac-actions{width:100%}
   .art-cta .ac-actions a{flex:1 1 100%;text-align:center}
+  /* expanding-PH proof pills: two equal-width, centered pills (US$24B pill removed) */
+  .kpi-row-2{justify-content:center}
+  .kpi-row-2 .kpi{display:flex;align-items:center;justify-content:center;text-align:center;flex:1 1 240px;max-width:320px}
+  /* technology TrueTrace band sits right under the trimmed carousel — restore breathing room above its label */
+  .tt-band{padding-top:34px!important}
 }
 
 </style>
@@ -1546,7 +1555,7 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
       <h2 class="h-edit band-head reveal d1">HQ sees it. PH <span class="hl-ink">runs it.</span></h2>
       <p class="band-sub reveal d2">HQ keeps visibility and the right to audit. PH operations execute. Both work off the same source of truth on Fusion &mdash; so the number you see in your morning update is the number on the warehouse floor.</p>
       <div class="flow-wrap reveal d2"><div class="flow-diagram">
-        <svg viewBox="0 0 820 260" role="img" aria-label="HQ and PH operations on one source of truth">
+        <svg class="dvg-d" viewBox="0 0 820 260" role="img" aria-label="HQ and PH operations on one source of truth">
           <defs><linearGradient id="fdgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#004AAD"/><stop offset="1" stop-color="#27B7D6"/></linearGradient></defs>
           <path class="fd-link" d="M230 120 C 300 120 300 120 340 120"/>
           <path class="fd-link" d="M500 120 C 540 120 540 120 590 120"/>
@@ -1555,6 +1564,15 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
           <g class="fd-node"><rect x="40" y="80" width="190" height="80" rx="14"/><text x="135" y="114">HQ</text><text class="fd-sub" x="135" y="134">Visibility &amp; audit</text></g>
           <g class="fd-node fd-core fd-pulse"><rect x="340" y="86" width="160" height="68" rx="14"/><image class="fd-logo" href="assets/brand-logos/fusion-logo-white.png" x="360" y="98" width="120" height="26" preserveAspectRatio="xMidYMid meet"/><text class="fd-sub" x="420" y="138">One source of truth</text></g>
           <g class="fd-node"><rect x="590" y="80" width="190" height="80" rx="14"/><text x="685" y="114">PH operations</text><text class="fd-sub" x="685" y="134">Execution</text></g>
+        </svg>
+        <svg class="dvg-m" viewBox="0 0 340 580" role="img" aria-label="HQ, Fusion, and PH operations on one source of truth">
+          <path class="fd-link" d="M170 150 L170 206"/>
+          <path class="fd-link" d="M170 374 L170 430"/>
+          <path class="fd-flow" d="M170 150 L170 206"/><path class="fd-flow rev" d="M170 150 L170 206"/>
+          <path class="fd-flow" d="M170 374 L170 430"/><path class="fd-flow rev" d="M170 374 L170 430"/>
+          <g class="fd-node"><rect x="30" y="30" width="280" height="120" rx="20"/><text x="170" y="80" style="font-size:32px;font-weight:700">HQ</text><text class="fd-sub" x="170" y="118" style="font-size:14.5px;letter-spacing:.05em">Visibility &amp; audit</text></g>
+          <g class="fd-node fd-core fd-pulse"><rect x="30" y="206" width="280" height="168" rx="20"/><image class="fd-logo" href="assets/brand-logos/fusion-logo-white.png" x="90" y="248" width="160" height="42" preserveAspectRatio="xMidYMid meet"/><text class="fd-sub" x="170" y="332" style="font-size:15.5px;letter-spacing:.08em">One source of truth</text></g>
+          <g class="fd-node"><rect x="30" y="430" width="280" height="120" rx="20"/><text x="170" y="480" style="font-size:25px;font-weight:700">PH operations</text><text class="fd-sub" x="170" y="518" style="font-size:14.5px;letter-spacing:.05em">Execution</text></g>
         </svg>
       </div></div>
     </div>
@@ -1607,8 +1625,7 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
           <div class="stat-l">Inventory accuracy</div>
         </div>
       </div>
-      <div class="kpi-row reveal d2" style="margin-top:30px">
-        <span class="kpi"><strong>~US$24B</strong> PH e-commerce GMV 2025 &middot; e-Conomy SEA</span>
+      <div class="kpi-row kpi-row-2 reveal d2" style="margin-top:30px">
         <span class="kpi"><strong>6</strong> channels, one platform</span>
         <span class="kpi"><strong>Free</strong> quarterly cycle counts</span>
       </div>
