@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inspire Solutions — Tech-first 3PL in the Philippines</title>
+<meta name="description" content="Inspire is the Philippines' modular e-commerce backbone — bringing control through Fusion, and reliability through execution.">
+<link rel="canonical" href="https://inspiresolutions.asia/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Inspire Solutions">
+<meta property="og:title" content="Inspire Solutions — Tech-first 3PL in the Philippines">
+<meta property="og:description" content="The Philippines' modular e-commerce backbone — control through Fusion, reliability through execution.">
+<meta property="og:url" content="https://inspiresolutions.asia/">
+<meta property="og:image" content="https://inspiresolutions.asia/assets/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inspire Solutions — Tech-first 3PL in the Philippines">
+<meta name="twitter:description" content="The Philippines' modular e-commerce backbone — control through Fusion, reliability through execution.">
+<meta name="twitter:image" content="https://inspiresolutions.asia/assets/og-default.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/generated/chaos-dark.jpg" fetchpriority="high">
+<style>
+/* ============================================================
+   V1 — "Chaos → Clarity" · story-led narrative scroll
+   Dark (#020B1C) = the problem · Light (#FAFBFC) = life with Inspire
+   The body background is continuously interpolated by JS as you scroll.
+   ============================================================ */
+:root{
+  --blue:#004AAD;
+  --cyan:#27B7D6;
+  --cyan-deep:#0F7E99;       /* deep brand-cyan shade — AA on white for small text */
+  --dark:#020B1C;
+  --dark-2:#03193C;
+  --light:#FAFBFC;
+  --ink:#04254F;             /* dark headline ink on light */
+  --ink-body:#3D5066;        /* body gray on light */
+  --ink-soft:#8595A6;
+  --line:rgba(2,30,60,.10);
+  --sg:'Space Grotesk',sans-serif;
+  --in:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{
+  scroll-behavior:smooth;
+  overflow-x:clip; /* scaled scene images must never let the page pan sideways */
+  /* overscroll bookends: dark above, light below */
+  background:linear-gradient(180deg,var(--dark) 0%,var(--dark) 40%,var(--light) 60%,var(--light) 100%);
+}
+body{
+  font:400 17px/1.65 var(--in);
+  color:#fff;
+  background-color:var(--dark); /* JS interpolates this continuously */
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(39,183,214,.35)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+body.on-light :focus-visible{outline-color:var(--blue)} /* Inspire blue ring keeps AA on white */
+.btn:focus-visible,.card:focus-visible{outline-offset:4px}
+img{display:block}
+
+.container{width:min(1180px,92vw);margin:0 auto}
+
+/* ---------- cinematic film layer (hero → chaos → turn full-bleed scenes) ---------- */
+.film{position:fixed;inset:0;z-index:0;pointer-events:none}
+.film-layer{position:absolute;inset:0;opacity:0;visibility:hidden;will-change:opacity;overflow:hidden}
+.film-layer img{width:100%;height:100%;object-fit:cover;object-position:center;will-change:transform;transform:scale(1.1)}
+.film-layer::after{content:'';position:absolute;inset:0}
+.film-hero{opacity:1;visibility:visible} /* visible pre-JS: the hero image is the opening frame */
+.film-hero::after{background:linear-gradient(180deg,rgba(2,11,28,.55),rgba(2,11,28,.25) 46%,rgba(2,11,28,.78))}
+.film-chaos::after{background:linear-gradient(180deg,rgba(2,11,28,.80),rgba(2,11,28,.46) 50%,rgba(2,11,28,.84))}
+.film-turn::after{background:linear-gradient(180deg,rgba(2,16,40,.72),rgba(2,24,56,.36) 52%,rgba(2,16,40,.62))}
+
+/* ---------- background canvas (hero → chaos → turn) ---------- */
+/* demoted to a subtle accent layer over the film images */
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6}
+
+/* ---------- skip link ---------- */
+.skip-link{
+  position:fixed;top:-48px;left:16px;z-index:200;padding:10px 18px;border-radius:0 0 10px 10px;
+  background:var(--blue);color:#fff;font:600 13px var(--in);text-decoration:none;transition:top .25s ease;
+}
+.skip-link:focus{top:0}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:26px;
+  width:min(1180px,calc(100% - 28px));height:60px;padding:0 12px 0 24px;
+  border-radius:999px;
+  background:rgba(2,11,28,.52);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  backdrop-filter:blur(20px) saturate(150%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 44px -22px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
+  transition:background .45s ease,border-color .45s ease,height .35s ease,box-shadow .45s ease;
+}
+body.scrolled .nav{height:54px;background:rgba(2,11,28,.72)}
+.brand{display:flex;align-items:center;flex:0 0 auto}
+.logo{height:21px;width:auto} /* no filter transition: intermediate filter states look off */
+/* white SVG → Inspire blue on light backgrounds */
+.logo-dark,
+body.on-light .nav .logo{
+  filter:brightness(0) saturate(100%) invert(18%) sepia(96%) saturate(2400%) hue-rotate(207deg) brightness(92%) contrast(104%);
+}
+.nav-links{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:flex;gap:26px;
+}
+.nav-links a{
+  font:500 13.5px/1 var(--in);letter-spacing:-.005em;text-decoration:none;
+  color:rgba(255,255,255,.78);transition:color .3s ease;padding:6px 0;
+}
+.nav-links a:hover{color:#fff}
+body.on-light .nav{
+  background:rgba(250,251,252,.78);border-color:rgba(2,30,60,.12);
+  box-shadow:0 18px 44px -26px rgba(2,30,60,.28), inset 0 1px 0 rgba(255,255,255,.65);
+}
+body.on-light .nav-links a{color:#2C415A}
+body.on-light .nav-links a:hover{color:var(--blue)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:48px;padding:0 28px;border-radius:999px;border:0;cursor:pointer;
+  font:600 15px/1 var(--sg);letter-spacing:-.01em;text-decoration:none;
+  transition:transform .25s ease,background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:#fff;color:#04122A}
+.btn-primary:hover{box-shadow:0 10px 32px -10px rgba(255,255,255,.45)}
+.btn-nav{height:38px;padding:0 18px;font-size:13.5px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.30);margin-left:auto;flex:0 0 auto}
+.btn-nav:hover{border-color:rgba(255,255,255,.7)}
+body.on-light .btn-nav{color:var(--blue);border-color:rgba(0,74,173,.38)}
+body.on-light .btn-nav:hover{border-color:var(--blue)}
+.btn-blue{background:var(--blue);color:#fff;width:100%;height:52px}
+.btn-blue:hover{background:#003B8A;box-shadow:0 14px 32px -14px rgba(0,74,173,.55)}
+
+/* ---------- shared type ---------- */
+.kicker{
+  font:500 11px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;
+  display:flex;align-items:center;gap:14px;
+}
+.kicker::before{content:'';width:26px;height:1px;background:var(--cyan)}
+.k-dark{color:rgba(255,255,255,.55);justify-content:center}
+.k-light{color:var(--cyan)}
+.h-edit{
+  font:600 clamp(2.1rem,4.2vw,3.4rem)/1.08 var(--sg);
+  letter-spacing:-.02em;color:var(--blue);
+}
+/* ---------- cyan keyword accents ----------
+   Exactly ONE word or short phrase per major heading. Never two per heading,
+   never in body copy. .hl = on dark · .hl-ink = on light (brand cyan #27B7D6 —
+   CEO call — with a thin cyan underline keeping it anchored against blue ink). */
+.hl{color:var(--cyan)}
+.hl-ink{color:var(--cyan)} /* AA-on-white deep cyan — one brand accent, no underline */
+.band-sub{font:400 clamp(1rem,1.45vw,1.15rem)/1.65 var(--in);color:var(--ink-body);max-width:620px;margin-top:18px}
+.scene-tag{
+  position:absolute;top:86px;left:50%;transform:translateX(-50%);
+  font:500 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
+  opacity:.42;white-space:nowrap;
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;z-index:1;min-height:100svh;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:120px 5vw 80px;
+}
+.hero::before{ /* legibility vignette over the film image + particle field */
+  content:'';position:absolute;inset:-12% -10%;pointer-events:none;
+  background:radial-gradient(closest-side at 50% 46%,rgba(2,11,28,.80),rgba(2,11,28,.28) 58%,transparent 78%);
+}
+.hero-inner{position:relative;max-width:880px;will-change:transform,opacity}
+.hero-inner .kicker{margin-bottom:30px}
+.hero h1{
+  font:600 clamp(2.9rem,7.2vw,5.8rem)/1.02 var(--sg);
+  letter-spacing:-.032em;color:#fff;margin-bottom:26px;
+}
+.hero .sub{
+  font:400 clamp(1.02rem,1.55vw,1.22rem)/1.62 var(--in);
+  color:rgba(238,245,252,.88);max-width:620px;margin:0 auto 42px;
+}
+/* hero positioning emphasis: backbone phrase in bold white, the two pillar
+   words in bold brand cyan — nothing else colored */
+.hero .sub strong{font-weight:600;color:#fff}
+.hero .sub strong.f{color:var(--cyan)}
+.cta-row{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap}
+.link-quiet{
+  font:500 15px/1 var(--in);color:rgba(255,255,255,.85);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:5px;transition:border-color .3s ease;
+}
+.link-quiet:hover{border-color:#fff}
+.scroll-cue{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font:500 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);transition:opacity .5s ease;
+}
+.scroll-cue i{width:1px;height:38px;background:rgba(255,255,255,.4);transform-origin:top;animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+body.scrolled .scroll-cue{opacity:0}
+
+/* ---------- sticky scenes (chaos / turn) ---------- */
+.scene{position:relative;z-index:1}
+#chaos{height:380vh}
+#turn{height:260vh} /* tightened: no dead flat-blue travel in the turn (CEO call) */
+.stage{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  display:grid;place-items:center;
+}
+.stage-vignette::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(closest-side at 50% 50%,rgba(2,11,28,.7),transparent 75%);
+}
+.beat{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:0 6vw;opacity:0;pointer-events:none;will-change:transform,opacity;
+}
+.beat-line{
+  font:600 clamp(2rem,4.6vw,3.5rem)/1.1 var(--sg);
+  letter-spacing:-.022em;max-width:920px;
+}
+.beat-para{
+  font:700 clamp(1.55rem,3vw,2.35rem)/1.32 var(--sg);letter-spacing:-.012em;
+  color:#fff;max-width:780px;margin-bottom:30px; /* bigger than body, smaller than beat-line; cyan accents (CEO call) */
+}
+.beat-big{
+  font:600 clamp(2.5rem,6vw,4.6rem)/1.04 var(--sg);letter-spacing:-.03em;
+}
+.neq{color:var(--cyan)} /* brand cyan — no red anywhere in the narrative sections (CEO call) */
+
+/* ---------- pain ticker (chaos act) ----------
+   Verbatim pain language as small bordered chips; staggered opacity pulse
+   (flicker) on motion, static legible row under reduced-motion. */
+.pain-ticker{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  max-width:780px;margin-top:38px;
+}
+.pain-ticker span{
+  font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  padding:11px 18px;border-radius:999px;
+  border:1px solid rgba(39,183,214,.55);color:rgba(255,255,255,.95);
+  background:rgba(39,183,214,.12);opacity:.95;
+  animation:painPulse 3.4s ease-in-out infinite;
+  animation-delay:var(--d,0s);
+}
+@keyframes painPulse{0%,100%{opacity:.62}50%{opacity:1}}
+
+/* ---------- the turn ---------- */
+#turn .stage{color:#fff}
+.turn-stack{
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding:0 6vw;transform:translateY(-5vh);max-width:1000px;
+}
+.turn-stack>*{opacity:0;will-change:transform,opacity}
+.t-label{font:500 11px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:26px}
+.t-h{font:600 clamp(2.6rem,5.6vw,4.6rem)/1.02 var(--sg);letter-spacing:-.03em;margin-bottom:40px}
+.t-line{font:500 clamp(1.45rem,2.7vw,2.15rem)/1.25 var(--sg);letter-spacing:-.015em;color:rgba(255,255,255,.94)}
+.t-line + .t-line{margin-top:10px}
+.t-enforce{font:500 clamp(1.08rem,1.6vw,1.3rem)/1.55 var(--in);color:rgba(255,255,255,.92);margin-top:30px;max-width:560px}
+.t-built{font:500 clamp(1rem,1.4vw,1.15rem)/1.5 var(--mono);letter-spacing:.01em;color:rgba(231,239,248,.85);margin-top:18px}
+.t-chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:34px}
+.t-chips span{
+  font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  padding:9px 16px;border-radius:999px;border:1px solid rgba(39,183,214,.5);
+  color:#BFEFF9;background:rgba(39,183,214,.08);
+}
+
+/* ---------- execution (light, image-driven) ---------- */
+.img-scene{
+  position:relative;z-index:1;min-height:100svh;overflow:hidden;
+  display:grid;place-items:end center;text-align:center;
+  padding:140px 6vw clamp(88px,14vh,150px);
+}
+.scene-img{position:absolute;inset:0;z-index:0}
+.scene-img img{width:100%;height:100%;object-fit:cover;object-position:center}
+.plx-flow{will-change:transform;transform:scale(1.12)}
+#exec .scene-img::after{ /* light-world wash: image stays the scene, copy stays AA */
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(250,251,252,.88),rgba(250,251,252,.20) 28%,rgba(250,251,252,.10) 54%,rgba(250,251,252,.90) 84%,var(--light));
+}
+.img-scene-inner{position:relative;z-index:1;max-width:980px}
+#exec{padding-bottom:clamp(150px,20vh,230px)} /* lift the headline into the lower-washed zone so the carousel blends right beneath it */
+#exec .scene-tag{color:var(--ink);opacity:.42}
+#exec .beat-line{color:var(--blue)}
+#exec .dim{color:var(--blue);opacity:.55} /* muted brand blue — no gray (CEO call) */
+.exec-scene-sub{
+  font:500 clamp(1.02rem,1.5vw,1.2rem)/1.55 var(--in);
+  color:var(--ink-body);max-width:560px;margin:20px auto 0;
+}
+.exec-close-sub{
+  font:400 clamp(1rem,1.5vw,1.18rem)/1.6 var(--in);
+  color:var(--ink-body);max-width:560px;margin-top:26px;
+}
+.exec-rule{width:54px;height:2px;background:var(--cyan);margin-top:34px}
+
+/* ---------- split sections (image one side, copy the other) ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,76px);align-items:center}
+.split + .split{margin-top:clamp(52px,7vw,88px)}
+.split-img{
+  position:relative;margin:0;border-radius:20px;overflow:hidden;
+  border:1px solid var(--line);aspect-ratio:4/3;background:#E6EEF6;
+  box-shadow:0 30px 60px -42px rgba(2,30,60,.35);
+}
+.split-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.split.rev .split-img{order:2}
+.split-h{font:600 clamp(1.65rem,3vw,2.55rem)/1.12 var(--sg);letter-spacing:-.02em;color:var(--blue)}
+.split-h .dim{color:var(--cyan);opacity:1}
+.split-sub{font:400 15px/1.65 var(--in);color:var(--ink-body);margin-top:14px;max-width:430px}
+.cutoff-chip{
+  display:inline-flex;align-items:baseline;gap:12px;margin-top:28px;
+  font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);
+  padding:13px 19px;border:1px solid rgba(39,183,214,.45);border-radius:999px;background:rgba(39,183,214,.07);
+}
+.cutoff-chip strong{font:500 15px/1 var(--mono);letter-spacing:-.02em;color:var(--blue)}
+
+/* ---------- Fusion live composite: real product UI over warehouse reality ----------
+   High-fidelity HTML/CSS recreation of the actual Fusion dashboard (aggregates
+   are real, from the live dashboard) floated over the facility image —
+   product clarity + warehouse reality, side by side. */
+.fz-scene{position:relative;margin-top:56px}
+.fz-scene-img{
+  position:absolute;inset:0;border-radius:26px;overflow:hidden;
+  border:1px solid var(--line);background:#E6EEF6;
+}
+.fz-scene-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fz-scene-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(115deg,rgba(2,30,60,.46),rgba(2,30,60,.14) 55%,rgba(2,30,60,.40));
+}
+/* restructured (CEO call: nothing cropped): the panel takes the full row,
+   the aside cards sit as a balanced two-column row beneath it */
+.fz-grid{
+  position:relative;display:grid;grid-template-columns:1fr;
+  gap:24px;align-items:start;padding:clamp(22px,4vw,52px);
+}
+.fz-tilt{will-change:transform;transform:perspective(1500px) rotateX(1.2deg)}
+.fz-aside{display:grid;grid-template-columns:1.25fr .75fr;gap:24px}
+
+/* -- the panel: light product UI, screenshot-crisp -- */
+.fz{
+  background:#F7F8FB;border:1px solid #E3E7EF;border-radius:18px;
+  box-shadow:0 48px 90px -42px rgba(2,20,50,.55),0 16px 40px -28px rgba(2,20,50,.4);
+  padding:18px 18px 16px;text-align:left;
+  font:400 13.5px/1.5 var(--in);color:#101828;
+}
+.fz *{min-width:0}
+.fz-top{display:flex;align-items:center;gap:12px;padding:2px 4px 14px;border-bottom:1px solid #E9EDF3;margin-bottom:16px}
+.fz-mark{display:inline-flex;align-items:center;gap:7px;font:700 19px/1 var(--in);letter-spacing:-.03em;color:#6D5BD0}
+.fz-mark svg{flex:0 0 auto}
+.fz-crumb{font:500 13px/1 var(--in);color:#475467;padding-left:12px;border-left:1px solid #E3E7EF}
+.fz-date{
+  margin-left:auto;font:500 12px/1 var(--in);color:#344054;white-space:nowrap;
+  padding:8px 12px;border:1px solid #D8DEE8;border-radius:9px;background:#fff;
+}
+.fz-sec{padding:0 4px;margin-bottom:14px}
+.fz-sec h3{font:600 16.5px/1.2 var(--in);letter-spacing:-.01em;color:#101828}
+.fz-sec p{font:400 12.5px/1.5 var(--in);color:#667085;margin-top:3px}
+.fz-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.fz-stat{
+  background:#fff;border:1px solid #E9EDF3;border-radius:12px;padding:13px 14px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04);
+}
+.fz-stat-l{font:500 11.5px/1.35 var(--in);color:#667085}
+.fz-stat-v{font:600 21px/1.2 var(--in);letter-spacing:-.02em;color:#101828;margin-top:5px}
+.fz-stat-s{font:500 11px/1.4 var(--in);color:#667085;margin-top:3px}
+.fz-up{color:#079455}
+.fz-down{color:#D92D20}
+.fz-charts{display:grid;grid-template-columns:1.55fr 1fr;gap:10px;margin-top:10px}
+.fz-chart,.fz-aov{
+  background:#fff;border:1px solid #E9EDF3;border-radius:12px;padding:14px 14px 10px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04);
+}
+.fz-chart-h{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.fz-chart-h strong{font:600 13px/1.2 var(--in);color:#101828}
+.fz-legend{display:flex;gap:12px;margin-left:auto}
+.fz-legend span{display:inline-flex;align-items:center;gap:5px;font:500 10.5px/1 var(--in);color:#667085}
+.fz-legend i{width:8px;height:8px;border-radius:50%}
+.fz-chart svg{display:block;width:100%;height:auto}
+.fz-aov{display:flex;flex-direction:column;justify-content:center;text-align:left}
+.fz-aov-l{font:500 12px/1.35 var(--in);color:#667085}
+.fz-aov-v{font:600 30px/1.15 var(--in);letter-spacing:-.025em;color:#101828;margin:7px 0 9px}
+.fz-aov-s{font:400 11.5px/1.6 var(--in);color:#667085}
+.fz-aov-s b{font-weight:600;color:#344054}
+.fz-orders{margin-top:10px;background:#fff;border:1px solid #E9EDF3;border-radius:12px;overflow:hidden}
+.fz-row{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;
+  font:500 12px/1.3 var(--in);color:#344054;
+}
+.fz-row + .fz-row{border-top:1px solid #F0F3F7}
+.fz-mp{
+  flex:0 0 auto;font:600 10.5px/1 var(--in);letter-spacing:.01em;color:#fff;
+  padding:5px 10px;border-radius:999px;
+}
+.fz-mp.tiktok{background:#0B0B0F}
+.fz-mp.lazada{background:linear-gradient(100deg,#F146A0,#FF7A45)}
+.fz-mp.shopee{background:#EE4D2D}
+.fz-inv{font:500 11.5px/1 var(--mono);letter-spacing:-.02em;color:#475467}
+.fz-amt{margin-left:auto;font:600 12.5px/1 var(--in);color:#101828;white-space:nowrap}
+.fz-cou{font:700 10.5px/1 var(--in);letter-spacing:.05em;color:#475467;flex:0 0 auto}
+.fz-st{
+  flex:0 0 auto;font:600 10.5px/1 var(--in);color:#067647;
+  background:#ECFDF3;border:1px solid #ABEFC6;border-radius:999px;padding:5px 10px;
+}
+
+/* -- real Fusion screenshots: browser-chrome frames, natural ratio, no cropping -- */
+.fz-shots{margin-top:40px;display:flex;flex-direction:column;gap:22px}
+.shot-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.shot{
+  margin:0;background:#fff;border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;box-shadow:0 34px 70px -42px rgba(2,20,50,.45);
+}
+.shot-bar{
+  display:flex;align-items:center;gap:6px;padding:11px 14px;
+  border-bottom:1px solid var(--line);background:#F7F9FC;
+}
+.shot-bar i{width:9px;height:9px;border-radius:50%;background:#DCE4EE}
+.shot-bar span{margin-left:8px;font:500 10.5px/1 var(--mono);letter-spacing:.06em;color:var(--ink-soft)}
+.shot img{display:block;width:100%;height:auto}
+.fz-note{
+  margin-top:20px;text-align:center;
+  font:500 13px/1.7 var(--mono);letter-spacing:.02em;color:var(--ink);
+}
+.fz-note strong{color:var(--blue)}
+/* -- aside: transparency audit card -- */
+.audit-card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px;
+  box-shadow:0 34px 70px -40px rgba(2,20,50,.5);text-align:left;
+}
+.audit-title{font:600 19px/1.25 var(--sg);letter-spacing:-.015em;color:var(--ink);margin-bottom:16px}
+.audit-row{display:flex;gap:14px;align-items:flex-start}
+.audit-thumb{
+  flex:0 0 86px;width:86px;height:86px;border-radius:12px;object-fit:cover;
+  border:1px solid var(--line);
+}
+.audit-log{display:flex;flex-direction:column;gap:10px}
+.audit-log p{font:400 12.5px/1.55 var(--in);color:#2C415A}
+.audit-log p span{display:block;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.audit-sys{
+  padding:9px 11px;border-radius:10px;background:#F2F6FA;border:1px solid rgba(2,30,60,.07);
+  font:500 11.5px/1.5 var(--mono) !important;letter-spacing:-.01em;color:#3C5068 !important;
+}
+.audit-foot{
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
+  font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);
+}
+
+/* ---------- native video bands (looping mp4 over a poster — NO third-party
+     players, no sound, no controls). The poster <img> sits permanently behind
+     the <video>: before metadata, on a missing/failed mp4 (.vid-fail via JS),
+     or under prefers-reduced-motion, the band is simply the poster. ---------- */
+.video-band{
+  position:relative;z-index:1;min-height:82svh;overflow:hidden;
+  display:grid;place-items:center;text-align:center;padding:120px 6vw;
+  background:var(--dark-2); /* any edge gap renders dark, never the interpolated body blue */
+}
+.vb-ambient{min-height:72svh;padding:0;margin-top:-12svh} /* overlaps the turn's blue tail — tighter chapter handoff */
+.vb-bridge{min-height:82svh}
+.vb-media{position:absolute;inset:0;background:var(--dark-2)}
+.vb-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vb-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vb-media.vid-fail video{display:none} /* mp4 missing/unplayable → poster holds */
+.vb-scrim{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(2,11,28,.62),rgba(2,11,28,.38) 48%,rgba(2,11,28,.68));
+}
+.vb-inner{position:relative;max-width:880px}
+.vb-inner .beat-line{color:#fff}
+.vb-inner .exec-scene-sub{
+  font:500 clamp(1.02rem,1.5vw,1.2rem)/1.55 var(--in);
+  color:var(--ink-body);max-width:560px;margin:20px auto 0;
+}
+.exec-close-sub{color:rgba(231,239,248,.85);margin:26px auto 0}
+.vb-inner .exec-rule{margin:34px auto 0}
+
+/* ---------- client logo wall ---------- */
+/* ORIGINAL color logos (assets/brand-logos/) on uniform WHITE rounded tiles —
+   JPEG white backgrounds blend invisibly into the tile, color marks stay
+   color (CEO call: no black & white knockouts). 5+4 on desktop. */
+.logo-wall{margin-top:52px;text-align:center}
+.logo-wall-label{font:500 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#44566B;margin-bottom:30px;text-align:center}
+.logo-row{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:18px;
+  max-width:912px;margin:0 auto; /* 5×168 + 4×18 → rows break 5 then 4 */
+}
+.logo-tile{
+  width:168px;height:84px;padding:16px;background:#fff;
+  border:1px solid rgba(2,30,60,.12);border-radius:14px;
+  box-shadow:0 10px 24px -18px rgba(2,30,60,.22);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+}
+.logo-tile:hover{
+  transform:translateY(-3px);border-color:rgba(39,183,214,.5);
+  box-shadow:0 16px 32px -18px rgba(2,30,60,.32);
+}
+.logo-tile img{width:100%;height:100%;object-fit:contain}
+.logo-more{
+  font:500 12px/1 var(--mono);letter-spacing:.08em;color:var(--ink-soft);
+  box-shadow:none;border-style:dashed;
+}
+/* trusted-partners marquee (scrolling logo carousel) */
+.lmq{position:relative;overflow:hidden;margin:34px auto 0;max-width:1080px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.lmq-track{display:flex;gap:18px;width:max-content;align-items:center}
+.lmq-track .logo-tile{flex:0 0 auto}
+@media (prefers-reduced-motion:no-preference){
+  .lmq-track{animation:lmq var(--mq,42s) linear infinite}
+  .lmq:hover .lmq-track{animation-play-state:paused}
+}
+@keyframes lmq{to{transform:translateX(-50%)}}
+/* trusted-partners: lift the band up so the carousel blends into the #exec reliability fade,
+   carried on a soft blue/cyan gradient — reads as one continuous image, not a white slab */
+#partners{position:relative;z-index:2;
+  margin-top:clamp(-220px,-16vh,-140px);
+  padding:0 0 clamp(54px,7vw,84px);
+  background:linear-gradient(180deg,
+    rgba(250,251,252,0) 0%,
+    rgba(39,183,214,.09) 28%,
+    rgba(0,74,173,.06) 50%,
+    var(--light) 64%)}
+#partners .logo-wall{margin-top:0}
+.logo-wall{position:relative}
+.logo-wall::before{content:'';position:absolute;left:50%;top:64%;transform:translate(-50%,-50%);
+  width:94%;height:300px;z-index:0;pointer-events:none;filter:blur(6px);
+  background:radial-gradient(62% 130% at 50% 50%,rgba(39,183,214,.18),rgba(0,74,173,.08) 52%,transparent 78%)}
+.logo-wall>*{position:relative;z-index:1}
+@media (prefers-reduced-motion:no-preference){.logo-wall::before{animation:lwglow 13s ease-in-out infinite alternate}}
+@keyframes lwglow{from{opacity:.75}to{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
+
+/* ---------- doors over PH dusk ---------- */
+.band-doors{position:relative;overflow:hidden;background:linear-gradient(180deg,#020D20,#03193C)}
+.band-doors .vb-media{background:transparent}
+.band-doors .scene-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(2,13,32,.62),rgba(2,13,32,.28) 44%,rgba(2,13,32,.58));
+}
+.band-doors .container{position:relative;z-index:1}
+.k-on-img{color:rgba(255,255,255,.68)}
+.h-on-img{color:#fff}
+.band-doors .card{
+  background:rgba(255,255,255,.93);border-color:rgba(255,255,255,.45);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.band-doors .card:hover{border-color:rgba(39,183,214,.8)}
+
+/* ---------- pillar card media + focal still ---------- */
+.card-media{
+  position:relative;margin:0 0 28px;aspect-ratio:16/9;border-radius:14px;
+  overflow:hidden;border:1px solid var(--line);background:#E6EEF6;
+}
+.card-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.card-media img.contain{object-fit:contain;background:#0A0F1E;padding:8px}
+.card:hover .card-media img{transform:scale(1.045)}
+.focal-band{position:relative;z-index:1;padding:0 0 clamp(96px,12vw,150px)}
+.focal-frame{
+  position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:21/9;background:var(--dark-2);
+  box-shadow:0 36px 80px -48px rgba(2,30,60,.45);
+}
+.focal-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ---------- light bands ---------- */
+.band{position:relative;z-index:1;padding:clamp(64px,8vw,104px) 0}
+/* tightened rhythm: the exec scene already exhales into the light world, so the
+   Fusion band + exec splits sit closer — one chapter, not three loose sections */
+#fusion-live{padding:clamp(56px,7vw,88px) 0 clamp(56px,7vw,88px)}
+#exec-detail{padding-top:clamp(56px,6vw,84px)}
+/* explicit light paint on every section below the exec scene: identical in real
+   scrolling (body is already #FAFBFC there) but keeps these bands light even when
+   the JS-interpolated body color isn't at its light stop (e.g. full-page capture) */
+#exec-detail,#fusion-live,#proof,#pillars,#schedule{background:var(--light)}
+/* #services paints its own dark flow gradient (.band-flow) */
+.band .kicker{margin-bottom:26px}
+.band-head{max-width:760px}
+
+/* services: dark bento grid */
+.band-flow{
+  background:
+    radial-gradient(1100px 500px at 80% 10%,rgba(39,183,214,.10),transparent 60%),
+    radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 1.5px),
+    linear-gradient(180deg,#020D20,#03193C);
+  background-size:auto,26px 26px,auto;
+}
+.k-dark-l{color:rgba(255,255,255,.55)}
+.h-on-dark{color:#fff}
+.sub-on-dark{color:rgba(231,239,248,.78)}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:198px;gap:16px;margin-top:48px}
+.sp22{grid-column:span 2;grid-row:span 2}
+.sp21{grid-column:span 2}
+.bt{
+  position:relative;border-radius:18px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.035);
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+}
+.bt:hover{transform:translateY(-3px);border-color:rgba(39,183,214,.6);box-shadow:0 24px 48px -28px rgba(0,0,0,.55)}
+.bt-media{position:absolute;inset:0;margin:0}
+.bt-media img{width:100%;height:100%;object-fit:cover;opacity:.92;transition:transform .7s ease}
+.bt:hover .bt-media img{transform:scale(1.04)}
+.bt-media::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(2,13,32,.30),rgba(2,13,32,.06) 40%,rgba(2,13,32,.88) 86%);
+}
+.bt-num{
+  position:absolute;top:15px;left:15px;z-index:2;
+  width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font:500 10px/1 var(--mono);color:var(--cyan);
+  border:1px solid rgba(39,183,214,.55);background:rgba(2,13,32,.45);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.bt-body{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:20px 22px}
+.bt-body-top{top:0;bottom:auto;padding-top:58px;display:flex;flex-direction:column;gap:9px}
+.bt h4{font:600 17px/1.25 var(--sg);letter-spacing:-.01em;color:#fff;margin-bottom:7px}
+.bt p{font:400 13.5px/1.55 var(--in);color:rgba(231,239,248,.74)}
+.bt-stat{font:500 34px/1 var(--mono);letter-spacing:-.04em;color:var(--cyan);margin-bottom:10px}
+.bt-mps{display:flex;gap:8px;margin-top:8px}
+.bt-mps span{
+  width:38px;height:38px;border-radius:11px;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.bt-mps img{width:21px;height:21px;object-fit:contain}
+.bt-link{position:absolute;inset:0;z-index:3;border-radius:18px}
+.bt-steps{
+  margin-top:auto;
+  font:500 11px/1.6 var(--mono) !important;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--cyan) !important;
+}
+
+/* proof */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;margin-top:42px;
+}
+.stat{background:var(--light);padding:38px 32px}
+.stat-v{
+  font:500 clamp(1.7rem,2.7vw,2.4rem)/1.1 var(--mono);
+  letter-spacing:-.04em;color:var(--blue);white-space:nowrap;
+}
+.stat-l{font:500 12px/1.5 var(--in);letter-spacing:.02em;color:#44566B;margin-top:10px;text-transform:uppercase}
+.stat-sub{font:400 11px/1.5 var(--in);color:var(--ink-body);margin-top:4px}
+.channels{position:relative;max-width:760px;margin:54px auto 0;
+  display:flex;flex-direction:column;align-items:center;gap:24px;padding:clamp(30px,4vw,44px) 24px}
+.channels::before{content:'';position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);
+  width:86%;height:230px;z-index:0;pointer-events:none;filter:blur(8px);
+  background:radial-gradient(62% 130% at 50% 50%,rgba(39,183,214,.15),rgba(0,74,173,.06) 52%,transparent 76%)}
+.channels-label{position:relative;z-index:1;font:500 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#37506B;text-align:center}
+.channels .badges{position:relative;z-index:1}
+.badges{display:flex;gap:10px;flex-wrap:wrap;list-style:none;justify-content:center}
+.badges li{
+  display:inline-flex;align-items:center;gap:9px;
+  font:500 12.5px/1 var(--mono);letter-spacing:.04em;color:#2C415A;
+  padding:10px 18px;border:1px solid rgba(2,30,60,.14);border-radius:999px;background:#fff;
+}
+.badges li img{width:20px;height:20px;object-fit:contain}
+.badges-icons li{width:64px;height:64px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:16px;
+  transition:transform .32s cubic-bezier(.2,.75,.3,1),box-shadow .32s ease,border-color .32s ease}
+.badges-icons li:hover{transform:translateY(-6px) scale(1.12);border-color:rgba(39,183,214,.55);box-shadow:0 20px 36px -18px rgba(0,74,173,.42)}
+.badges-icons img{width:30px;height:30px;object-fit:contain;transition:transform .32s cubic-bezier(.2,.75,.3,1)}
+.badges-icons li:hover img{transform:scale(1.1)}
+
+/* doors + pillars cards */
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:42px}
+.card{
+  display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+  border-radius:18px;padding:42px 40px;text-decoration:none;
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(39,183,214,.65);box-shadow:0 28px 56px -34px rgba(2,30,60,.30)}
+.card-kicker{font:500 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:22px}
+.card h3{font:600 clamp(1.45rem,2.1vw,1.8rem)/1.15 var(--sg);letter-spacing:-.02em;color:var(--ink);margin-bottom:14px}
+.card .card-line{font:500 15px/1.45 var(--sg);color:var(--blue);margin-bottom:14px}
+.card p{font:400 15.5px/1.65 var(--in);color:var(--ink-body)}
+.card-extra{
+  margin-top:16px;padding:11px 14px;border-radius:10px;
+  border:1px solid rgba(39,183,214,.30);background:rgba(39,183,214,.06);
+  font:500 12px/1.6 var(--mono) !important;letter-spacing:.01em;color:var(--cyan) !important;
+}
+.card-end{
+  font:500 12px/1.5 var(--mono);color:var(--cyan);
+  margin-top:auto;padding-top:30px;
+}
+.card-arrow{margin-top:auto;padding-top:30px;font:500 14px/1 var(--in);color:var(--blue)}
+.card:hover .card-arrow{color:var(--cyan)}
+.modular-line{
+  margin-top:46px;text-align:center;
+  font:500 clamp(14px,1.45vw,16.5px)/1.65 var(--mono);letter-spacing:.04em;color:#2C415A;
+}
+.modular-line em{font-style:normal;border-bottom:1px solid var(--cyan);padding-bottom:2px}
+#pillars{padding-bottom:clamp(28px,3.2vw,44px)}
+
+/* ---------- close / schedule ---------- */
+#schedule{text-align:center;padding-top:clamp(34px,4vw,52px)}
+#schedule .kicker{justify-content:center}
+#schedule .h-edit{font-size:clamp(2.5rem,5.4vw,4.4rem)}
+.close-badge{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 28px;
+  box-shadow:0 14px 30px -16px rgba(2,30,60,.35);
+}
+.close-sub{font:400 clamp(1rem,1.5vw,1.2rem)/1.65 var(--in);color:var(--ink-body);max-width:560px;margin:20px auto 42px}
+.meet{
+  max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--line);
+  border-radius:24px;padding:clamp(28px,4vw,44px);text-align:left;
+}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+.meet{max-width:640px}
+.meet-progress{height:3px;border-radius:99px;background:rgba(2,30,60,.10);margin-bottom:26px;overflow:hidden}
+.meet-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:99px;transition:width .45s ease}
+.mstep{border:0;margin:0;padding:0}
+.mstep[hidden]{display:none}
+.mstep-k{font:500 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+.mstep[data-step="1"]{text-align:center}
+.mstep[data-step="1"] .m-nav{justify-content:center}
+.chips-select{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.chip-check input{position:absolute;opacity:0;pointer-events:none}
+.chip-check span{
+  display:inline-flex;align-items:center;padding:13px 20px;border-radius:999px;cursor:pointer;
+  font:500 14px/1 var(--in);color:var(--ink);
+  border:1px solid rgba(2,30,60,.18);background:#FCFDFE;transition:all .25s ease;
+}
+.chip-check input:checked + span{border-color:var(--blue);background:rgba(0,74,173,.07);color:var(--blue);font-weight:600}
+.chip-check input:focus-visible + span{outline:2px solid var(--cyan);outline-offset:3px}
+.m-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:14px}
+.m-nav .btn{width:auto;padding:0 26px}
+.btn-ghost{
+  height:48px;padding:0 18px;border:0;background:transparent;cursor:pointer;
+  font:500 14px/1 var(--in);color:#5B6B7D;
+}
+.btn-ghost:hover{color:var(--ink)}
+.m-err{font:500 12.5px/1.5 var(--in);color:#B42318;margin-top:14px}
+.opt{text-transform:none;letter-spacing:0;color:#A6B3C2}
+.f-grid select{
+  height:50px;padding:0 14px;border-radius:12px;border:1px solid rgba(2,30,60,.16);
+  background:#FCFDFE;font:400 15px var(--in);color:var(--ink);
+}
+.f-grid select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 4px rgba(39,183,214,.16)}
+.book-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#FCFDFE;min-height:540px}
+.book-frame iframe{display:block;width:100%;height:640px;border:0}
+.book-alt{font:400 13px/1.6 var(--in);color:var(--ink-body);margin-top:14px;text-align:center}
+.book-alt a{color:var(--blue)}
+.f-grid label{
+  display:flex;flex-direction:column;gap:9px;
+  font:500 10.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#5B6B7D;
+}
+.f-grid .span2{grid-column:1 / -1}
+.f-grid input{
+  height:50px;padding:0 16px;border-radius:12px;border:1px solid rgba(2,30,60,.16);
+  background:#FCFDFE;font:400 15px var(--in);color:var(--ink);
+  transition:border-color .25s ease,box-shadow .25s ease;
+}
+.f-grid input::placeholder{color:#A6B3C2}
+.f-grid input:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 4px rgba(39,183,214,.16)}
+.f-note{font:500 10px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#A6B3C2;text-align:center;margin-top:18px;transition:color .3s ease}
+.meet.sent .f-note{color:var(--cyan)}
+
+/* ---------- footer (dark, modern, animated dot-mesh, gradient) ---------- */
+footer{position:relative;z-index:1;overflow:hidden;color:#cdd9e8;background:linear-gradient(180deg,#03132c,#020b1c);padding:0}
+footer::before{content:'';position:absolute;inset:-26px 0;z-index:0;pointer-events:none;opacity:.6;
+  background-image:radial-gradient(rgba(39,183,214,.20) 1px,transparent 1.4px);background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000,transparent 80%);mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000,transparent 80%)}
+@media (prefers-reduced-motion:no-preference){footer::before{animation:footdots 26s linear infinite}}
+@keyframes footdots{to{background-position:26px 26px}}
+footer .container{position:relative;z-index:1}
+.foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr 1.1fr;gap:clamp(26px,2.4vw,40px);padding:clamp(60px,7vw,90px) 0 0}
+.foot-brand{max-width:320px}
+.foot-logo{height:26px;width:auto;margin-bottom:18px}
+.foot-geo{font:400 13.5px/1.65 var(--in);color:rgba(205,217,232,.66);letter-spacing:0;text-transform:none}
+.foot-h{font:600 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+.foot-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.foot-list a{font:400 14px/1.35 var(--in);color:rgba(205,217,232,.82);text-decoration:none;transition:color .25s ease}
+.foot-list a:hover{color:#fff}
+.foot-connect{text-align:center}
+.foot-social{list-style:none;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.foot-social a{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:rgba(205,217,232,.8);
+  transition:transform .28s cubic-bezier(.2,.7,.3,1),color .25s ease,border-color .25s ease,background .25s ease}
+.foot-social a:hover{transform:translateY(-3px);color:#fff;border-color:rgba(39,183,214,.6);background:rgba(39,183,214,.14)}
+.foot-social svg{width:18px;height:18px;fill:currentColor;display:block}
+.foot-bottom{margin-top:clamp(40px,5vw,58px);padding:22px 0;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:400 13px/1.5 var(--in);color:rgba(205,217,232,.5)}
+.foot-bottom a{color:inherit;text-decoration:none}
+.foot-bottom a:hover{color:#fff}
+
+/* ---------- reveal-on-scroll (light sections) ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}
+.reveal.d2{transition-delay:.16s}
+.reveal.d3{transition-delay:.24s}
+
+/* ---------- responsive ---------- */
+@media (max-width:1023px){
+  .nav-links{display:none}
+  .nav .nav-burger{display:flex}
+}
+@media (max-width:479px){
+  /* brand + CTA + burger don't fit the capsule on phones: CTA stays available inside the mobile menu */
+  .nav .btn-nav{display:none}
+  .nav .nav-burger{margin-left:auto}
+}
+.nav-burger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  flex:0 0 42px;width:42px;height:42px;margin-left:10px;padding:0 10px;
+  background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:10px;cursor:pointer;
+}
+.nav-burger i{display:block;height:2px;background:#fff;border-radius:2px;transition:transform .3s ease,opacity .3s ease}
+body.on-light .nav-burger{border-color:rgba(0,74,173,.38)}
+body.on-light .nav-burger i{background:var(--blue)}
+body.menu-open .nav-burger i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.menu-open .nav-burger i:nth-child(2){opacity:0}
+body.menu-open .nav-burger i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  position:fixed;top:84px;left:14px;right:14px;z-index:49;overflow:hidden;
+  background:
+    radial-gradient(120% 75% at 50% 0%,rgba(39,183,214,.20),transparent 60%),
+    linear-gradient(168deg,rgba(16,74,166,.72) 0%,rgba(7,32,78,.88) 46%,rgba(2,12,30,.94) 100%);
+  -webkit-backdrop-filter:blur(26px) saturate(1.35);backdrop-filter:blur(26px) saturate(1.35);
+  border:1px solid rgba(39,183,214,.34);border-radius:22px;
+  box-shadow:0 28px 70px -26px rgba(0,0,0,.78),0 0 38px -12px rgba(39,183,214,.32),inset 0 1px 0 rgba(255,255,255,.1);
+  padding:18px 22px 26px;
+}
+.mobile-menu::before{content:'';position:absolute;left:24px;right:24px;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.8}
+body.on-light .mobile-menu{background:
+    radial-gradient(120% 75% at 50% 0%,rgba(39,183,214,.20),transparent 60%),
+    linear-gradient(168deg,rgba(16,74,166,.72) 0%,rgba(7,32,78,.88) 46%,rgba(2,12,30,.94) 100%);
+  border-color:rgba(39,183,214,.34)}
+.mobile-menu nav{display:flex;flex-direction:column;gap:2px;position:relative}
+.mobile-menu a{
+  font:500 17px/1.1 var(--sg);color:#eaf3fb;text-decoration:none;padding:15px 10px;border-radius:12px;
+  border-bottom:1px solid rgba(39,183,214,.12);display:flex;align-items:center;justify-content:space-between;
+  transition:background .25s ease,color .25s ease,padding-left .25s ease;
+}
+.mobile-menu a::after{content:'\2192';color:var(--cyan);opacity:0;transform:translateX(-6px);
+  transition:opacity .25s ease,transform .25s ease;font:600 15px/1 var(--sg)}
+.mobile-menu a:hover,.mobile-menu a:active{background:rgba(39,183,214,.12);color:#fff;padding-left:16px}
+.mobile-menu a:hover::after,.mobile-menu a:active::after{opacity:1;transform:none}
+body.on-light .mobile-menu a{color:#eaf3fb;border-bottom-color:rgba(39,183,214,.12)}
+.mobile-menu a.btn{border:0;margin-top:16px;color:#fff !important;justify-content:center;border-radius:999px}
+.mobile-menu a.btn::after{display:none}
+
+/* ---------- chapter dots ---------- */
+.dots{
+  position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;
+  display:flex;flex-direction:column;gap:12px;
+}
+.dots a{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(255,255,255,.28);transition:background .3s ease,transform .3s ease;
+}
+.dots a.on{background:var(--cyan);transform:scale(1.45)}
+body.on-light .dots a{background:rgba(2,30,60,.18)}
+body.on-light .dots a.on{background:var(--cyan)}
+@media (max-width:1023px){.dots{display:none}}
+
+/* ---------- screenshot lightbox ---------- */
+.lightbox{position:fixed;inset:0;z-index:120;background:rgba(2,8,20,.92)}
+.lb-scroll{position:absolute;inset:0;overflow:auto;display:grid;place-items:center;padding:28px}
+.lb-scroll img{max-width:none;width:min(1800px,160vw);height:auto;border-radius:10px;cursor:zoom-out}
+.lb-close{
+  position:fixed;top:18px;right:20px;z-index:121;width:44px;height:44px;border-radius:50%;
+  font:300 26px/1 var(--in);color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);cursor:pointer;
+}
+.shot img{cursor:zoom-in}
+@media (max-width:860px){
+  #chaos{height:250vh}
+  #turn{height:185vh}
+  .cards-2{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr 1fr;grid-auto-rows:190px}
+  .stats{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand{grid-column:1 / -1}
+  .split{grid-template-columns:1fr;gap:24px}
+  .split.rev .split-img{order:0}
+  .split + .split{margin-top:64px}
+  .logo-row{gap:14px;max-width:none}
+  .logo-tile{width:148px;height:76px;padding:14px}
+  #partners{margin-top:clamp(-150px,-14vh,-80px);padding-bottom:clamp(40px,8vw,56px)}
+  .img-scene{min-height:88svh}
+  /* Fusion composite stacks: panel full-width, aside cards below, no tilt */
+  .fz-grid{grid-template-columns:1fr;gap:20px;padding:clamp(16px,3.4vw,30px)}
+  .fz-tilt{transform:none}
+  .fz-stats{grid-template-columns:repeat(2,1fr)}
+  .fz-charts{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .stats{grid-template-columns:1fr;border-radius:16px}
+  .stat{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:24px 22px}
+  .stat-l{margin-top:0;text-align:right}
+  .stat-sub{display:none}
+  .channels{gap:16px}
+  .card{padding:32px 26px}
+  .bento{grid-template-columns:1fr;grid-auto-rows:auto}
+  .sp22,.sp21{grid-column:auto;grid-row:auto}
+  .bt{min-height:180px}
+  .bt.sp22{min-height:260px}
+  .f-grid{grid-template-columns:1fr}
+  .scene-tag{top:78px}
+  /* wall wraps to a 3-per-row tile grid on phones (marks stay legible) */
+  .logo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .logo-row .logo-tile{width:100%;height:64px;padding:10px}
+  .lmq-track .logo-tile{width:128px;height:60px;padding:11px;flex:0 0 auto}
+  .focal-frame{aspect-ratio:16/9;border-radius:18px}
+  .pain-ticker{gap:8px}
+  .pain-ticker span{padding:7px 11px;font-size:9.5px}
+  .fz-top{flex-wrap:wrap}
+  .fz-date{margin-left:0}
+  .fz-row{flex-wrap:wrap;row-gap:6px}
+  .fz-amt{margin-left:0}
+}
+
+/* ---------- mobile optimization pass (phones only; desktop unchanged) ---------- */
+@media (max-width:760px){
+  /* footer: Connect stays in its grid cell, LEFT-aligned to start at the same line as Grow in PH; 2x2 social, 44px taps */
+  .foot-connect{text-align:left}
+  .foot-social{display:grid;grid-template-columns:repeat(2,44px);gap:12px;justify-content:start;width:max-content;margin:0;flex-wrap:initial}
+  .foot-social a{width:44px;height:44px}
+  .foot-list{gap:2px}
+  .foot-list a{display:inline-flex;align-items:center;min-height:44px;padding:6px 0}
+  .nav-burger{width:44px;height:44px}
+  .crumb a{display:inline-block;padding:10px 6px;margin:-10px -6px}
+  .foot-bottom a{display:inline-block;padding:8px 2px}
+  /* drop parallax overscan on phones so framed images show edge-to-edge, nothing cropped */
+  .plx-flow{transform:none !important}
+  /* Fusion-live screenshots: pan the true-scale image instead of shrinking it to an illegible thumbnail */
+  .fz-shots .shot{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
+  .fz-shots .shot img{width:auto;height:236px;max-width:none}
+  /* Multi-Channel Sync card: size to content (no dead space) + ~2x bigger marketplace logos filling the width */
+  .bt:has(.bt-body-top){min-height:0}
+  .bt-body-top{position:static;padding:56px 24px 26px}
+  .bt-mps{gap:9px;margin-top:18px}
+  .bt-mps span{flex:1 1 0;width:auto;height:auto;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+  .bt-mps img{width:32px;height:32px}
+}
+
+/* ---------- reduced motion: composed static states ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  body{background-color:var(--light)}
+  /* static composed frames: hero image + canvas confined behind the hero;
+     chaos/turn carry their scene images as static section backgrounds */
+  .film{position:absolute;height:100vh;background:var(--dark)}
+  .film-layer{visibility:hidden}
+  .film-hero{visibility:visible;opacity:1}
+  .film-layer img{transform:none;will-change:auto}
+  .bg-canvas{position:absolute;height:100vh}
+  .hero{background:transparent}
+  #chaos{background:linear-gradient(180deg,rgba(2,11,28,.84),rgba(2,11,28,.80)),url('assets/generated/warehouse-dark.jpg') center/cover no-repeat}
+  #turn{background:linear-gradient(180deg,rgba(2,16,40,.78),rgba(0,48,110,.72)),url('assets/generated/fusion-control.jpg') center/cover no-repeat}
+  #chaos,#turn{height:auto}
+  .stage{position:static;height:auto;display:block;padding:110px 0}
+  .scene-tag{position:static;transform:none;text-align:center;margin-bottom:54px}
+  .beat{position:static;opacity:1;pointer-events:auto;padding:38px 6vw;will-change:auto}
+  .turn-stack{transform:none;margin:0 auto}
+  .turn-stack>*{opacity:1;will-change:auto}
+  .hero-inner{will-change:auto}
+  .scroll-cue i{display:none}
+  .reveal{opacity:1;transform:none}
+  /* static composed image scenes: no parallax, no video autoplay (poster stays) */
+  .plx-flow{transform:none;will-change:auto}
+  .img-scene{min-height:72svh}
+  .img-scene .scene-tag{position:absolute;top:86px;left:50%;transform:translateX(-50%);margin:0}
+  /* native video bands fall back to their posters (JS also strips autoplay) */
+  .vb-media video{display:none}
+  .vb-ambient{min-height:48svh}
+  .pain-ticker span{opacity:.85} /* flicker off, chips static + legible */
+  .fz-tilt{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Cinematic film layer: full-bleed scene images for the dark chapters.
+     Hero = chaos-dark (eager, the only initial-viewport image); chaos = warehouse-dark;
+     turn = fusion-control (chaos tangles → ordered stream — the narrative pivot).
+     Cross-faded + gently parallaxed by JS; deferred via data-src until after load. -->
+<div class="film" aria-hidden="true">
+  <div class="film-layer film-hero" id="film-hero">
+    <img src="assets/generated/chaos-dark.jpg" alt="" width="1920" height="1071" fetchpriority="high" decoding="async">
+  </div>
+  <div class="film-layer film-chaos" id="film-chaos">
+    <img data-src="assets/generated/warehouse-dark.jpg" alt="" width="1920" height="1071" decoding="async">
+  </div>
+  <div class="film-layer film-turn" id="film-turn">
+    <img data-src="assets/generated/fusion-control.jpg" alt="" width="1920" height="1071" decoding="async">
+  </div>
+</div>
+
+<!-- Particle field: drifting marketplace notification cards + flickering pain
+     lines; snaps to an ordered cyan stream during the Fusion turn.
+     Now a subtle accent OVER the film images — the images are the star. -->
+<canvas id="fx" class="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a class="brand" href="index.html" aria-label="Inspire Solutions — home">
+    <img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1ODguNjQgMTI5LjU1Ij4KICA8dGl0bGU+aW5zcGlyZS1sb2dvLW1haW4td2hpdGU8L3RpdGxlPgogIDxwYXRoIGQ9Ik01Ni42Nyw4MC43NWEzOC4yOSwzOC4yOSwwLDAsMS01LDE5LjI2LDM1LjUzLDM1LjUzLDAsMCwxLTE0LTIuMzhsLjEzLS4yYzExLTE4LjczLDEyLjExLTM4Ljg3LDQuODYtNTQuNjQtLjU1LTEuMTktMS4xNS0yLjM2LTEuNzktMy41MXMtMS4yMS0yLTEuODgtM0MyOCwxOS43OSwxMi40OSwxOC42LDEzLjY5LDE1LjY4czI1LjM4LDkuNjgsMzIuNTksMjJsLjMxLjU0Yy43LDEuMTksMS4zNSwyLjM0LDIsMy40OEM1NC4yNyw1Mi4yNCw1Ni42Nyw2MS4xLDU2LjY3LDgwLjc1WiIgc3R5bGU9ImZpbGw6I2ZmZiI+PC9wYXRoPgogIDxlbGxpcHNlIGN4PSI0OC4wMSIgY3k9IjI0Ljg4IiByeD0iNSIgcnk9IjQuOTYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zLjUzIDQxLjI0KSByb3RhdGUoLTQ1KSIgc3R5bGU9ImZpbGw6I2ZmZiI+PC9lbGxpcHNlPgogIDxwYXRoIGQ9Ik0xMDIuNjksMzguNjNjMCwxOS40OS0yMi4wOSw0NS4yNi00MS4zNiw2Mi41OWwtMjYuMTkuMDgtNi42MiwwUzc2LjkyLDcyLjYzLDkzLDQ0LjQ4QzEwNSwyMy4yNyw4NS44MiwxNC44Miw4My42NCwxMy43M2EzMC40OSwzMC40OSwwLDAsMSwxMi4yMiw3LjU5QTI0LjEsMjQuMSwwLDAsMSwxMDIuNjksMzguNjNaIiBzdHlsZT0iZmlsbDojZmZmIj48L3BhdGg+CiAgPHBhdGggZD0iTTEwMi42OSwzOC42M2MwLDE5LjQ5LTIyLjA5LDQ1LjI2LTQxLjM2LDYyLjU5bC0yNi4xOS4wOHYtLjA4UzU5LjYsODYuNDksNzguNDQsNjYuNzhDOTMuNzgsNTAuNzQsOTksNDEuNDUsOTksMzIuMzVhMjEuNSwyMS41LDAsMCwwLTMuMTUtMTFBMjQuMSwyNC4xLDAsMCwxLDEwMi42OSwzOC42M1oiIHN0eWxlPSJmaWxsOiNmZmYiPjwvcGF0aD4KICA8cGF0aCBkPSJNMTguMjMsMzcuMTJ2MS45NFM5Ljc5LDQ3LjUxLDkuNzksNTUuNzRzNi4yOCwxMC4xOCw2LjI4LDEwLjE4djguMjNzLTEzLDAtMTMtMTEuNDhDMy4wNyw1Mi4yNywxMS41Miw0My44MywxOC4yMywzNy4xMloiIHN0eWxlPSJmaWxsOiNmZmYiPjwvcGF0aD4KICA8cGF0aCBkPSJNMTczLjQ5LDEwMS4wOFY2Mi40M2EyOS4zOSwyOS4zOSwwLDAsMC0uNzEtNy4xQTguNzQsOC43NCwwLDAsMCwxNzAuMzUsNTFhOS44MSw5LjgxLDAsMCwwLTQuNzQtMi4yNEEzNy4yMywzNy4yMywwLDAsMCwxNTgsNDguMUgxMzcuMjdhMzYuNTEsMzYuNTEsMCwwLDAtNy40OS42NEExMC4yMiwxMC4yMiwwLDAsMCwxMjUsNTFhOC40Nyw4LjQ3LDAsMCwwLTIuNSw0LjM1LDI5LjQ1LDI5LjQ1LDAsMCwwLS43LDcuMXYzOC42NUgxMDIuNzFWNjEuNzlhNTMuMDcsNTMuMDcsMCwwLDEsMS42LTE0LjA3LDE5LjIzLDE5LjIzLDAsMCwxLDUuNDQtOS4yOEEyMy4xNSwyMy4xNSwwLDAsMSwxMjAsMzMuMzJhNjcuMSw2Ny4xLDAsMCwxLDE2LTEuNmgyMy4xNmE2Ny44Nyw2Ny44NywwLDAsMSwxNi4xMywxLjYsMjMuMiwyMy4yLDAsMCwxLDEwLjI0LDUuMTJBMTkuMjEsMTkuMjEsMCwwLDEsMTkxLDQ3LjcyYTUzLjA3LDUzLjA3LDAsMCwxLDEuNiwxNC4wN3YzOS4yOVoiIHN0eWxlPSJmaWxsOiNmZmYiPjwvcGF0aD4KICA8cGF0aCBkPSJNMjg4Ljc5LDgyLjY1YTM1LjkxLDM1LjkxLDAsMCwxLS44OSw4LjY0LDEwLjU4LDEwLjU4LDAsMCwxLTMuNTIsNS43LDE2LjM5LDE2LjM5LDAsMCwxLTcuMTcsMy4xMyw1OS4xOSw1OS4xOSwwLDAsMS0xMS44NCwxSDIwNS43NHYtMTVoNTcuMnEzLjg0LDAsNS4zOC0xLjI4VDI2OS44NSw4MFY3Ny42NnEwLTMuODQtMS40Ny00LjhhOS40MSw5LjQxLDAsMCwwLTQuOTMtMWgtMzguOUEzMi40NCwzMi40NCwwLDAsMSwyMTUsNzAuNzVhMTIuNDQsMTIuNDQsMCwwLDEtNS42OS0zLjQ1LDEyLjA4LDEyLjA4LDAsMCwxLTIuNzUtNS43LDM5LjczLDM5LjczLDAsMCwxLS43MS04VjQ4LjM2YTI2LjkxLDI2LjkxLDAsMCwxLDEtNy42OEExMS4yNywxMS4yNywwLDAsMSwyMTAsMzUuNDlhMTMuMTgsMTMuMTgsMCwwLDEsNS44OS0yLjg4LDQxLjA4LDQxLjA4LDAsMCwxLDkuMzQtLjg5aDI2LjM2VjQ2LjE4SDIyOS44YTYuMzEsNi4zMSwwLDAsMC00LDFjLS44MS42OS0xLjIxLDEuOTItMS4yMSwzLjcydjMuMTljMCwyLC4zOCwzLjI5LDEuMTUsNGE1LjQ3LDUuNDcsMCwwLDAsMy43MSwxSDI2N2E0NS4xOCw0NS4xOCwwLDAsMSwxMC44OCwxLjA4LDE0LjU2LDE0LjU2LDAsMCwxLDYuNjUsMy40NiwxMi4zNywxMi4zNywwLDAsMSwzLjMzLDYuMTQsNDEuMzcsNDEuMzcsMCwwLDEsLjg5LDkuMjhaIiBzdHlsZT0iZmlsbDojZmZmIj48L3BhdGg+CiAgPHBhdGggZD0iTTM1OC44LDMxLjcyYTY3Ljg3LDY3Ljg3LDAsMCwxLDE2LjEzLDEuNiwyMy4xNiwyMy4xNiwwLDAsMSwxMC4yMyw1LjEyLDE5LjE1LDE5LjE1LDAsMCwxLDUuNDQsOS4yOCw1My4wNyw1My4wNywwLDAsMSwxLjYsMTQuMDd2OS4zNWE1Mi40NCw1Mi40NCwwLDAsMS0xLjYsMTQsMTkuMTEsMTkuMTEsMCwwLDEtNS40NCw5LjIxLDIzLjA2LDIzLjA2LDAsMCwxLTEwLjIzLDUuMTIsNjcuODcsNjcuODcsMCwwLDEtMTYuMTMsMS42SDMyMC4xNXYyMC43NEgzMDEuMDh2LTYwYTUzLjA3LDUzLjA3LDAsMCwxLDEuNi0xNC4wNywxOS4yMywxOS4yMywwLDAsMSw1LjQ0LTkuMjgsMjMuMTUsMjMuMTUsMCwwLDEsMTAuMjQtNS4xMiw2Ny43Miw2Ny43MiwwLDAsMSwxNi4xMi0xLjZabTE0LjMzLDMwLjU5YTMxLjY3LDMxLjY3LDAsMCwwLS43LTcuNDMsNy43OSw3Ljc5LDAsMCwwLTIuNjItNC4zNSwxMSwxMSwwLDAsMC01LjE5LTIuMDUsNTQuOTEsNTQuOTEsMCwwLDAtOC4yNS0uNTFIMzM1LjEyYTM2LjI3LDM2LjI3LDAsMCwwLTcuNDIuNjQsOS40Niw5LjQ2LDAsMCwwLTQuNjEsMi4yNCw4LjU5LDguNTksMCwwLDAtMi4zLDQuMzUsMzEuNDIsMzEuNDIsMCwwLDAtLjY0LDdWODQuODNIMzU2LjVhNjAuOTQsNjAuOTQsMCwwLDAsOC4xOS0uNDUsMTAuNCwxMC40LDAsMCwwLDUuMTItMiw3LjgyLDcuODIsMCwwLDAsMi42Mi00LjM1LDMyLjM4LDMyLjM4LDAsMCwwLC43LTcuNTVaIiBzdHlsZT0iZmlsbDojZmZmIj48L3BhdGg+CiAgPHBhdGggZD0iTTQxMy4xOSwyNy43NXEtMy41OCwwLTUuMDUtMS40MWMtMS0uOTMtMS40OC0yLjQzLTEuNDgtNC40OFYxNC40NGMwLTIsLjQ5LTMuNTIsMS40OC00LjQxczIuNjYtMS4zNSw1LjA1LTEuMzVoNi4yN2MyLjQ4LDAsNC4yLjQ1LDUuMTksMS4zNXMxLjQ3LDIuMzYsMS40Nyw0LjQxdjcuNDJhNiw2LDAsMCwxLTEuNDcsNC40OGMtMSwuOTQtMi43MSwxLjQxLTUuMTksMS40MVptLTYuNTMsNzMuMzNWMzMuNTFoMTkuNDZ2NjcuNTdaIiBzdHlsZT0iZmlsbDojZmZmIj48L3BhdGg+CiAgPHBhdGggZD0iTTQ0MS4yMiwxMDEuMDhWNjAuOUE0My4xMiw0My4xMiwwLDAsMSw0NDMsNDcuNTlhMjAuMjcsMjAuMjcsMCwwLDEsNS42OS05LDI0LjIyLDI0LjIyLDAsMCwxLDEwLjA1LTUuMTksNTguMDUsNTguMDUsMCwwLDEsMTUtMS42NmgxMi40MlY0Ny4yaC0xMS45YTI5LjY3LDI5LjY3LDAsMCwwLTYuNjYuNjRBOS4xOSw5LjE5LDAsMCwwLDQ2My4yOSw1MGE4LjgyLDguODIsMCwwLDAtMi4zLDQuMjIsMjcuMzksMjcuMzksMCwwLDAtLjcsNi43OXY0MC4wNVoiIHN0eWxlPSJmaWxsOiNmZmYiPjwvcGF0aD4KICA8cGF0aCBkPSJNNTE0LDczLjQ0djMuMmEyMC42NywyMC42NywwLDAsMCwuNTEsNS4xMiw1LjYzLDUuNjMsMCwwLDAsMS44NSwzQTcuNzYsNy43NiwwLDAsMCw1MjAsODYuMjRhMzQuNDgsMzQuNDgsMCwwLDAsNS41Ny4zOGgyMi41MnYxNC40Nkg1MjUuNTZxLTE2LjUxLDAtMjMuNTUtNi4yN3QtNy0yMC4wOXYtMTZBNDcuMjgsNDcuMjgsMCwwLDEsNDk2LjQ0LDQ2YTE2LjY0LDE2LjY0LDAsMCwxLDUuMTItOC4zMiwyMi40LDIyLjQsMCwwLDEsOS42Ni00LjU0LDY4LjQsNjguNCwwLDAsMSwxNS4yMy0xLjQxSDU2MGE0NS42Niw0NS42NiwwLDAsMSwxMi4zNSwxLjQxLDIwLjM0LDIwLjM0LDAsMCwxLDcuODEsMy45LDEzLjMzLDEzLjMzLDAsMCwxLDQsNiwyNC4zNCwyNC4zNCwwLDAsMSwxLjE1LDcuNjJWNzMuNDRaTTU2Ni4yNSw1Mi4yYzAtMi4zMS0uNTctMy44NC0xLjczLTQuNjFzLTMuMTctMS4xNS02LjA3LTEuMTVINTI2LjcxYTQ2LjEzLDQ2LjEzLDAsMCwwLTYsLjMyLDcuODIsNy44MiwwLDAsMC0zLjksMS40Nyw2LjM0LDYuMzQsMCwwLDAtMi4xMSwzLjMyLDIxLjU5LDIxLjU5LDAsMCwwLS42NCw1Ljg5djMuNzFoNTIuMjFaIiBzdHlsZT0iZmlsbDojZmZmIj48L3BhdGg+Cjwvc3ZnPgo=" alt="Inspire Solutions" width="588" height="130">
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="warehousing.html">Warehousing &amp; Fulfillment</a>
+    <a href="technology.html">Technology</a>
+    <a href="why-inspire.html">Why Inspire</a>
+    <a href="about-us.html">About</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <a class="btn btn-nav" href="#schedule">Schedule a meeting</a>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <i></i><i></i><i></i>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <nav aria-label="Mobile">
+    <a href="warehousing.html">Warehousing &amp; Fulfillment</a>
+    <a href="technology.html">Technology</a>
+    <a href="expanding-into-the-philippines.html">Expanding into PH</a>
+    <a href="scaling-in-the-philippines.html">Scaling in PH</a>
+    <a href="why-inspire.html">Why Inspire</a>
+    <a href="about-us.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a class="btn btn-blue" href="#schedule">Schedule a meeting</a>
+  </nav>
+</div>
+
+<!-- chapter dots (desktop) -->
+<nav class="dots" id="dots" aria-label="Page chapters">
+  <a href="#hero" data-sec="hero" aria-label="Top"></a>
+  <a href="#chaos" data-sec="chaos" aria-label="The chaos"></a>
+  <a href="#turn" data-sec="turn" aria-label="Fusion"></a>
+  <a href="#exec" data-sec="exec" aria-label="Execution"></a>
+  <a href="#fusion-live" data-sec="fusion-live" aria-label="The platform"></a>
+</nav>
+
+<!-- screenshot lightbox -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <div class="lb-scroll"><img id="lbImg" src="" alt="Expanded screenshot"></div>
+</div>
+
+<main id="main">
+
+  <!-- ===== Scene 1 · Hook (dark) ===== -->
+  <!-- HIGGSFIELD: pure-gen abstract chaos montage — marketplace notification cards and
+       parcel silhouettes drifting in dark space, very slow camera push-in, 1080p loop.
+       Replaces/underlays the canvas particle field in production. -->
+  <section class="hero" id="hero">
+    <div class="hero-inner" id="hero-inner">
+      <p class="kicker k-dark">Tech-first 3PL · Philippines</p>
+      <h1>Make the chaos<br><span class="hl">legible</span>.</h1>
+      <p class="sub">The Philippines' <strong>modular e-commerce backbone</strong> &mdash; your go-to <strong class="f">tech-driven warehousing and fulfillment</strong> partner.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#schedule">Schedule a meeting</a>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+  </section>
+
+  <!-- ===== Scene 2 · Chaos chapter (dark, sticky beats) ===== -->
+  <!-- HIGGSFIELD: scrubbed frame sequence — slow camera drift through disconnection
+       (half-lit screens, conflicting numbers, warehouse at night); beats land at scroll stops. -->
+  <section class="scene" id="chaos" aria-label="The chaos">
+    <div class="stage stage-vignette">
+      <!-- the chapter opens speaking directly to the brand owner (CEO call):
+           we know where you're coming from — then the chaos diagnosis -->
+      <div class="beat"><h2 class="beat-big">You didn't build your brand<br>to run a <span class="hl">logistics company</span>.</h2></div>
+      <div class="beat">
+        <p class="beat-para">You built it for the <span class="hl">product</span>. The <span class="hl">customers</span>. The <span class="hl">growth</span>.</p>
+        <h2 class="beat-line">Then operations started eating the week.</h2>
+      </div>
+      <div class="beat"><h2 class="beat-line">Marketplaces say one thing.</h2></div>
+      <div class="beat"><h2 class="beat-line">Your warehouse says another.</h2></div>
+      <div class="beat"><h2 class="beat-line">So which one is correct?</h2></div>
+      <div class="beat">
+        <p class="beat-para">You can see the problem. And still miss every SLA. That's the trap.</p>
+        <h2 class="beat-big">Visibility <span class="neq">&ne;</span> Control</h2>
+        <!-- pain ticker — verbatim pain language from the corpus, flickering chips -->
+        <div class="pain-ticker">
+          <span style="--d:0s">Late ship warnings</span>
+          <span style="--d:.5s">Oversells</span>
+          <span style="--d:1.1s">Refund disputes</span>
+          <span style="--d:.2s">"Where is my order?"</span>
+          <span style="--d:1.6s">Ratings dip</span>
+          <span style="--d:.8s">Peak day failure</span>
+          <span style="--d:2.1s">"Who owns this?"</span>
+          <span style="--d:.35s">Fragmented tools</span>
+          <span style="--d:1.35s">Backend complexity</span>
+          <span style="--d:.65s">Lack of transparency</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Scene 3 · The turn — Fusion enters (dark → blue → light) ===== -->
+  <!-- HIGGSFIELD: real Fusion dashboard moments — cyan sweep wipes the chaos montage
+       into one ordered data stream; palette lifts from near-black to Inspire blue. -->
+  <section class="scene" id="turn" aria-label="The turn — Fusion">
+    <div class="stage">
+      <div class="turn-stack">
+        <p class="t-label" id="t-label">Fusion enters</p>
+        <h2 class="t-h" id="t-h">Control through <span class="hl">Fusion</span>.</h2>
+        <p class="t-line" id="t-l1">One inventory truth.</p>
+        <p class="t-line" id="t-l2">One dispatch cut-off.</p>
+        <p class="t-line" id="t-l3">One clear owner for exceptions.</p>
+        <p class="t-enforce" id="t-enforce">That's what Fusion is built to enforce &mdash; across Shopee, Lazada, TikTok Shop, Shopify, and Zalora at once.</p>
+        <p class="t-built" id="t-built">Proprietary platform. <span class="hl">Built by operators, for operators.</span></p>
+        <div class="t-chips" id="t-chips">
+          <span>Exceptions: visible</span>
+          <span>Owner: assigned</span>
+          <span>Updates: on cadence</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Scene 4 · Execution chapter (light, image-driven) ===== -->
+  <!-- HIGGSFIELD: image-to-video daylight glide through the real facility — rack aisles,
+       packing stations, cut-off whiteboard, dispatch staging. From real photos; no stock look. -->
+  <section class="img-scene" id="exec" aria-label="The execution">
+    <div class="scene-img" aria-hidden="true">
+      <img class="plx-flow" src="assets/generated/exec-blue.jpg" alt="" width="1920" height="1071" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/generated/exec-real.jpg'">
+    </div>
+    <div class="img-scene-inner">
+      <h2 class="beat-line">Reliability through <span class="hl-ink">execution</span>.</h2>
+      <p class="exec-scene-sub">Where Fusion's rules become physical &mdash; racks, scans, cut-offs, dispatch.</p>
+    </div>
+  </section>
+
+  <!-- trusted partners — moved up under the Control/Reliability pillars so brand proof shows without deep scroll -->
+  <section class="band" id="partners" aria-label="Trusted partners">
+    <div class="container">
+      <div class="logo-wall reveal d1">
+        <p class="logo-wall-label">Some of our trusted partners</p>
+        <div class="lmq" style="--mq:44s">
+          <div class="lmq-track">
+          <div class="logo-tile"><img src="assets/brand-logos/havaianas.png" alt="Havaianas" width="195" height="195" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/orijin-global-brands.png" alt="Orijin Global Brands" width="300" height="129" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/dmd-skin-sciences.jpeg" alt="DMD Skin Sciences" width="200" height="200" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/the-purest-group.png" alt="The Purest Group" width="225" height="225" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/etaily.jpg" alt="Etaily" width="300" height="129" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/active-gears.jpeg" alt="Active Gears" width="200" height="200" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/drinkaid.png" alt="Drink Aid" width="225" height="225" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/de-guzman-co.jpeg" alt="De Guzman &amp; Co." width="300" height="300" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/secondspring.jpg" alt="Second Spring PH" width="600" height="256" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/lunaya.png" alt="Lunaya PH" width="300" height="300" loading="lazy" decoding="async"></div>
+          <div class="logo-tile"><img src="assets/brand-logos/havaianas.png" alt="" width="195" height="195" loading="lazy" decoding="async" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fusion, live: high-fidelity HTML/CSS recreation of the REAL Fusion dashboard
+       (aggregates below are from the live dashboard, Jun 01–12 2026 — do not edit
+       casually), composited over the warehouse scene. Product UI clarity +
+       warehouse reality, side by side. -->
+  <!-- Fusion, live: REAL platform screenshots (CEO-supplied), rendered at natural
+       aspect ratio - never cropped, never altered. Drop files into assets/real/ as
+       fusion-1.png / fusion-2.png / fusion-3.png; a frame whose file is missing
+       hides itself until the screenshot lands. -->
+  <section class="band" id="fusion-live" aria-label="Fusion, live">
+    <div class="container">
+      <p class="kicker k-light reveal">The command center</p>
+      <h2 class="h-edit band-head reveal d1">The system is <span class="hl-ink">the product</span>.</h2>
+      <p class="band-sub reveal d2">We're a technology-first 3PL. Warehousing and fulfillment are the services, and the system is the product. This is Fusion &mdash; <strong>real screens, live orders</strong>, not mockups.</p>
+
+      <div class="fz-shots">
+        <figure class="shot reveal">
+          <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>fusion &mdash; Dashboard &middot; Order performance &middot; All brands</span></div>
+          <img src="assets/generated/1.jpg" alt="Fusion dashboard: order performance, volumes and revenue across every marketplace" width="1920" height="1080" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'">
+        </figure>
+        <figure class="shot reveal d1">
+          <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>fusion &mdash; Marketplace comparison &middot; orders in fulfillment stage</span></div>
+          <img src="assets/generated/2.jpg" alt="Fusion marketplace comparison and orders flowing through fulfillment stages" width="2986" height="1598" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'">
+        </figure>
+      </div>
+      <p class="fz-note reveal">Enterprise-grade <strong>OMS + WMS + ERP</strong>. Fusion is our own product &mdash; license it standalone, or bundle it with our warehousing and fulfillment for a lower platform rate.</p>
+
+    </div>
+  </section>
+
+  <!-- Execution up close: split sections — image one side, beat the other -->
+  <section class="band" id="exec-detail" aria-label="Execution, up close">
+    <div class="container">
+      <div class="split">
+        <figure class="split-img reveal">
+          <img class="plx-flow" src="assets/generated/packing-station.jpg" alt="Packing station at an Inspire fulfillment facility" width="1920" height="1433" loading="lazy" decoding="async">
+        </figure>
+        <div class="split-copy reveal d1">
+          <h3 class="split-h">Packing follows a standard. <span class="dim">Not rechecked.</span></h3>
+          <p class="split-sub">Barcode-scanned and double-checked at the bench &mdash; so it ships right the first time.</p>
+        </div>
+      </div>
+      <div class="split rev">
+        <figure class="split-img reveal">
+          <img class="plx-flow" src="assets/generated/dispatch-staging.jpg" alt="Parcels staged for dispatch at an Inspire facility" width="1920" height="1433" loading="lazy" decoding="async">
+        </figure>
+        <div class="split-copy reveal d1">
+          <h3 class="split-h">Dispatch is staged. <span class="dim">Not rushed.</span></h3>
+          <p class="split-sub">Staged by cut-off and handed to couriers on time &mdash; every day, including the big ones.</p>
+          <p class="cutoff-chip"><strong>4:00&nbsp;PM</strong> Same-day dispatch cutoff</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ===== Full scope: bento grid — image-led service tiles ===== -->
+  <section class="band band-flow" id="services" aria-label="Full scope of services">
+    <div class="container">
+      <p class="kicker k-dark-l reveal">Full scope</p>
+      <h2 class="h-edit h-on-dark band-head reveal d1">Everything operations asks of you. <span class="hl">Handled.</span></h2>
+      <p class="band-sub sub-on-dark reveal d2">One partner, end to end &mdash; warehouse to your customer's doorstep, every channel in sync. So your week goes back to building the brand.</p>
+
+      <div class="bento">
+        <article class="bt sp22 reveal">
+          <figure class="bt-media" aria-hidden="true"><img src="assets/generated/packing-station.jpg" alt="" width="1920" height="1433" loading="lazy" decoding="async"></figure>
+          <a class="bt-link" href="warehousing.html" aria-label="Order fulfillment"></a><span class="bt-num">01</span>
+          <div class="bt-body">
+            <p class="bt-stat">99.5%</p>
+            <h4>Order Fulfillment</h4>
+            <p>Picked, packed, and dispatched right the first time. Barcode-scanned, double-checked.</p>
+          </div>
+        </article>
+        <article class="bt sp21 reveal d1">
+          <figure class="bt-media" aria-hidden="true"><img src="assets/generated/warehouse-dark.jpg" alt="" width="1920" height="1071" loading="lazy" decoding="async"></figure>
+          <a class="bt-link" href="warehousing.html" aria-label="Warehousing and storage"></a><span class="bt-num">02</span>
+          <div class="bt-body">
+            <h4>Warehousing &amp; Storage</h4>
+            <p>Secure, organized racking built for fast turns &mdash; your stock visible down to the rack.</p>
+          </div>
+        </article>
+        <article class="bt reveal d2">
+          <a class="bt-link" href="technology.html" aria-label="Multi-channel sync"></a><span class="bt-num">03</span>
+          <div class="bt-body bt-body-top">
+            <h4>Multi-Channel Sync</h4>
+            <p>One inventory truth across every channel.</p>
+            <div class="bt-mps" aria-label="Connected marketplaces">
+              <span><img src="assets/marketplaces/shopee.svg" alt="Shopee" loading="lazy"></span>
+              <span><img src="assets/marketplaces/lazada-icon.png" alt="Lazada" loading="lazy"></span>
+              <span><img src="assets/marketplaces/tiktok.svg" alt="TikTok Shop" loading="lazy"></span>
+              <span><img src="assets/marketplaces/shopify.svg" alt="Shopify" loading="lazy"></span>
+              <span><img src="assets/marketplaces/zalora-icon.png" alt="Zalora" loading="lazy"></span>
+            </div>
+          </div>
+        </article>
+        <article class="bt reveal d3">
+          <figure class="bt-media" aria-hidden="true"><img src="assets/generated/delivery-rider.jpg" alt="" width="1920" height="1433" loading="lazy" decoding="async"></figure>
+          <a class="bt-link" href="warehousing.html" aria-label="Same-day and next-day delivery"></a><span class="bt-num">04</span>
+          <div class="bt-body">
+            <h4>Same-Day &amp; Next-Day</h4>
+            <p>Metro Manila, our dedicated fleet &mdash; live tracking your customer can follow.</p>
+          </div>
+        </article>
+        <article class="bt reveal">
+          <a class="bt-link" href="warehousing.html" aria-label="Returns management"></a><span class="bt-num">05</span>
+          <div class="bt-body bt-body-top">
+            <h4>Returns Management</h4>
+            <p>Closed before they pile up.</p>
+            <p class="bt-steps">Receive &rarr; Inspect &rarr; Document &rarr; Close</p>
+          </div>
+        </article>
+        <article class="bt reveal d1">
+          <a class="bt-link" href="warehousing.html" aria-label="COD solutions"></a><span class="bt-num">06</span>
+          <div class="bt-body bt-body-top">
+            <h4>COD Solutions</h4>
+            <p>Collected, managed, remitted weekly. Cash flow stays smooth.</p>
+            <p class="bt-steps">&#8369; Collected &rarr; Remitted weekly</p>
+          </div>
+        </article>
+        <article class="bt sp21 reveal d2">
+          <figure class="bt-media" aria-hidden="true"><img src="assets/generated/parcel-macro.jpg" alt="" width="1920" height="1071" loading="lazy" decoding="async"></figure>
+          <a class="bt-link" href="warehousing.html" aria-label="Optimized shipping"></a><span class="bt-num">07</span>
+          <div class="bt-body">
+            <h4>Optimized Shipping</h4>
+            <p>Better rates through our integrated logistics partners &mdash; stop overpaying to ship.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Scene 5 · Proof band (light) ===== -->
+  <section class="band" id="proof" aria-label="Proof">
+    <div class="container">
+      <p class="kicker k-light reveal">Reliability through execution</p>
+      <h2 class="h-edit band-head reveal d1">A calm week isn't luck. <span class="hl-ink">It's built.</span></h2>
+
+      <div class="stats">
+        <div class="stat reveal">
+          <div class="stat-v"><span data-count data-target="900000" data-suffix="+">900,000+</span></div>
+          <div class="stat-l">Orders fulfilled</div>
+        </div>
+        <div class="stat reveal d1">
+          <div class="stat-v"><span data-count data-target="3">3</span></div>
+          <div class="stat-l">Warehouse facilities</div>
+        </div>
+        <div class="stat reveal d2">
+          <div class="stat-v"><span data-count data-target="7000" data-prefix="~">~7,000</span></div>
+          <div class="stat-l">Square meters</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-v"><span data-count data-target="99.5" data-dec="1" data-suffix="%">99.5%</span></div>
+          <div class="stat-l">Pick/pack accuracy</div>
+        </div>
+        <div class="stat reveal d1">
+          <div class="stat-v">4:00&nbsp;PM</div>
+          <div class="stat-l">Same-day dispatch cutoff</div>
+        </div>
+        <div class="stat reveal d2">
+          <div class="stat-v"><span data-count data-target="99.8" data-dec="1" data-suffix="%">99.8%</span></div>
+          <div class="stat-l">Inventory accuracy</div>
+          <div class="stat-sub">Free quarterly cycle counts</div>
+        </div>
+      </div>
+
+      <!-- Client logo wall — set matches COPY-CORPUS.md "available for logo wall"
+           list EXACTLY (Havaianas, Orijin, DMD Skin Sciences, The Purest Group,
+           Etaily, Active Gears, DrinkAid, Second Spring, Lunaya); the 10th
+           approved name (De Guzman & Co.) deliberately excluded — inactive client.
+           Still pending Darwin's final sign-off before launch (SPEC §3).
+           ORIGINAL color logos on uniform white tiles (CEO call: no B&W knockouts). -->
+      <!-- HIGGSFIELD: optional — subtle slow-motion facility still/loop behind or beside the stats. -->
+
+      <div class="channels reveal">
+        <p class="channels-label">Connected where you sell</p>
+        <ul class="badges badges-icons">
+          <li aria-label="Shopee"><img src="assets/marketplaces/shopee.svg" alt="Shopee" loading="lazy"></li>
+          <li aria-label="Lazada"><img src="assets/marketplaces/lazada-icon.png" alt="Lazada" loading="lazy"></li>
+          <li aria-label="TikTok Shop"><img src="assets/marketplaces/tiktok.svg" alt="TikTok Shop" loading="lazy"></li>
+          <li aria-label="Shopify"><img src="assets/marketplaces/shopify.svg" alt="Shopify" loading="lazy"></li>
+          <li aria-label="Zalora"><img src="assets/marketplaces/zalora-icon.png" alt="Zalora" loading="lazy"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== Scene 6 · Two doors (over Metro Manila blue hour) ===== -->
+  <section class="band band-doors" id="doors" aria-label="Who we help">
+    <div class="scene-img vb-media" aria-hidden="true">
+      <img src="assets/generated/ph-map.jpg" alt="" width="1920" height="1071" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <video autoplay muted loop playsinline preload="metadata" poster="assets/generated/ph-map.jpg" tabindex="-1">
+        <source src="assets/generated/clip-ph-map.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="container">
+      <p class="kicker k-light k-on-img reveal">Who we help</p>
+      <h2 class="h-edit h-on-img band-head reveal d1">Where are <span class="hl">you</span> in the story?</h2>
+      <div class="cards-2">
+        <a class="card reveal" href="expanding-into-the-philippines.html">
+          <p class="card-kicker">Door 01</p>
+          <h3>Expanding into the Philippines?</h3>
+          <p>Make PH execution predictable, auditable, and HQ-safe. One source of truth, clear ownership.</p>
+          <p class="card-extra">Peak-day readiness (11.11). KPI visibility HQ can audit.</p>
+          <p class="card-end">&rarr; "PH is under control."</p>
+        </a>
+        <a class="card reveal d1" href="scaling-in-the-philippines.html">
+          <p class="card-kicker">Door 02</p>
+          <h3>Scaling in the Philippines?</h3>
+          <p>Stop firefighting. Fewer oversells, clearer dispatch, no more midnight "where is my order?" chases.</p>
+          <p class="card-extra">Control shouldn't depend on you.</p>
+          <p class="card-end">&rarr; "We can breathe and grow."</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Scene 7 · Two pillars ===== -->
+  <section class="band" id="pillars" aria-label="What we do">
+    <div class="container">
+      <p class="kicker k-light reveal">Modular by design</p>
+      <h2 class="h-edit band-head reveal d1">Not just fulfillment.<br>Not just software.<br><span class="hl-ink">The backbone.</span></h2>
+      <div class="cards-2">
+        <a class="card reveal" href="warehousing.html">
+          <figure class="card-media" aria-hidden="true">
+            <img src="assets/generated/ops-conveyor.jpg" alt="" width="1920" height="1071" loading="lazy" decoding="async">
+          </figure>
+          <p class="card-kicker">3 facilities &middot; ~7,000 sqm</p>
+          <h3>Warehousing &amp; Fulfillment</h3>
+          <p class="card-line">Reliability through <span class="hl-ink">execution</span>.</p>
+          <p>Warehouse truth: reliability isn't a vibe, it's a routine. When the routine holds, spikes don't become chaos.</p>
+          <p class="card-arrow">&rarr;</p>
+        </a>
+        <a class="card reveal d1" href="technology.html">
+          <figure class="card-media" aria-hidden="true">
+            <img class="contain" src="assets/site/Inspire-SMEs-Wireframe-Layout-5-1024x660.png" alt="Fusion platform on desktop and mobile" width="1024" height="660" loading="lazy" decoding="async">
+          </figure>
+          <p class="card-kicker">OMS + WMS + ERP</p>
+          <h3>Technology</h3>
+          <p class="card-line">Control through <span class="hl-ink">Fusion</span>.</p>
+          <p>Fusion is tech-led control now: one truth, enforceable cut-offs, visible exceptions. Add execution support when you need it to stay reliable at scale.</p>
+          <p class="card-arrow">&rarr;</p>
+        </a>
+      </div>
+      <p class="modular-line reveal d2">Start with <em>control through Fusion</em>. Add reliability through execution.</p>
+    </div>
+  </section>
+
+  <!-- ===== Scene 8 · Close ===== -->
+  <section class="band" id="schedule" aria-label="Schedule a meeting">
+    <div class="container">
+      <p class="kicker k-light reveal">Schedule a meeting</p>
+      <!-- the round Inspire badge appears exactly once — a closing seal -->
+      <img class="close-badge reveal" src="assets/site/inspire-badge-new.png" alt="Inspire Solutions badge" width="500" height="500" loading="lazy" decoding="async">
+      <h2 class="h-edit reveal d1">Scale with <span class="hl-ink">confidence</span>.</h2>
+      <p class="close-sub reveal d2">At scale, confidence is built through consistency. That's the lens Inspire brings to growth.</p>
+      <form class="meet reveal d2" id="meetForm" novalidate>
+        <div class="meet-progress" aria-hidden="true"><i id="meetBar" style="width:25%"></i></div>
+
+        <!-- STEP 1: what do you need -->
+        <fieldset class="mstep on" data-step="1">
+          <p class="mstep-k">Step 1 of 4 &mdash; What do you need?</p>
+          <div class="chips-select" role="group" aria-label="Services">
+            <label class="chip-check"><input type="checkbox" name="services" value="Warehousing &amp; Fulfillment" checked><span>Warehousing &amp; Fulfillment</span></label>
+            <label class="chip-check"><input type="checkbox" name="services" value="Technology (Fusion)"><span>Technology (Fusion)</span></label>
+          </div>
+          <p class="m-err" id="err1" hidden>Pick at least one.</p>
+          <div class="m-nav"><span></span><button class="btn btn-blue m-next" type="button" data-go="2">Next</button></div>
+        </fieldset>
+
+        <!-- STEP 2: operations snapshot -->
+        <fieldset class="mstep" data-step="2" hidden>
+          <p class="mstep-k">Step 2 of 4 &mdash; Your operation, roughly</p>
+          <div class="f-grid">
+            <label class="span2">What do you sell?
+              <input type="text" name="goods" placeholder="e.g. skincare, apparel, supplements">
+            </label>
+            <label>Monthly orders
+              <select name="monthly_orders">
+                <option value="">Choose&hellip;</option>
+                <option>Under 1,000</option><option>1,000 &ndash; 5,000</option>
+                <option>5,000 &ndash; 20,000</option><option>20,000+</option>
+              </select>
+            </label>
+            <label data-wf-only>Storage needed
+              <select name="storage_cbm">
+                <option value="">Not sure yet</option>
+                <option>Under 25 CBM</option><option>25 &ndash; 100 CBM</option><option>100+ CBM</option>
+              </select>
+            </label>
+          </div>
+          <p class="m-err" id="err2" hidden>Tell us what you sell and your monthly volume.</p>
+          <div class="m-nav"><button class="btn-ghost m-back" type="button" data-go="1">Back</button><button class="btn btn-blue m-next" type="button" data-go="3">Next</button></div>
+        </fieldset>
+
+        <!-- STEP 3: contact -->
+        <fieldset class="mstep" data-step="3" hidden>
+          <p class="mstep-k">Step 3 of 4 &mdash; Where do we reach you?</p>
+          <div class="f-grid">
+            <label>Name
+              <input type="text" name="name" placeholder="Your name" autocomplete="name">
+            </label>
+            <label>Work email
+              <input type="email" name="email" placeholder="you@company.com" autocomplete="email">
+            </label>
+            <label>Phone
+              <input type="tel" name="phone" placeholder="+63" autocomplete="tel">
+            </label>
+            <label>Company / brand
+              <input type="text" name="company" placeholder="Brand or company" autocomplete="organization">
+            </label>
+            <label class="span2">Website or store link <span class="opt">(optional)</span>
+              <input type="url" name="website" placeholder="https://">
+            </label>
+          </div>
+          <p class="m-err" id="err3" hidden>Name, a valid email, phone, and company &mdash; then you pick a time.</p>
+          <div class="m-nav"><button class="btn-ghost m-back" type="button" data-go="2">Back</button><button class="btn btn-blue" type="submit" id="meetSubmit">Next &mdash; pick a time</button></div>
+        </fieldset>
+
+        <!-- STEP 4: book (TidyCal) -->
+        <fieldset class="mstep mstep-book" data-step="4" hidden>
+          <p class="mstep-k">Last step &mdash; pick a time that works</p>
+          <div class="book-frame" id="bookFrame"></div>
+          <p class="book-alt">Calendar not loading? <a id="bookLink" href="https://tidycal.com/team/sales-bd-department/30-minute-discovery-call" target="_blank" rel="noopener">Open the booking page</a> &mdash; your details are already with us.</p>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img class="foot-logo" src="logo-white.svg" alt="Inspire Solutions" width="588" height="130">
+        <p class="foot-geo">The Philippines&rsquo; modular e-commerce backbone &mdash; your go-to tech-driven warehousing and fulfillment partner.</p>
+      </div>
+      <nav class="foot-col" aria-label="Services">
+        <p class="foot-h">Services</p>
+        <ul class="foot-list">
+          <li><a href="warehousing.html">Warehousing &amp; Fulfillment</a></li>
+          <li><a href="technology.html">Technology</a></li>
+        </ul>
+      </nav>
+      <nav class="foot-col" aria-label="Grow in PH">
+        <p class="foot-h">Grow in PH</p>
+        <ul class="foot-list">
+          <li><a href="expanding-into-the-philippines.html">Expanding into PH</a></li>
+          <li><a href="scaling-in-the-philippines.html">Scaling in PH</a></li>
+        </ul>
+      </nav>
+      <nav class="foot-col" aria-label="Company">
+        <p class="foot-h">Company</p>
+        <ul class="foot-list">
+          <li><a href="why-inspire.html">Why Inspire</a></li>
+          <li><a href="about-us.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="faqs.html">FAQs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="foot-col foot-connect">
+        <p class="foot-h">Connect</p>
+        <ul class="foot-social">
+          <li><a href="https://www.linkedin.com/company/inspire-e-commerce-solutions-inc" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a></li>
+          <li><a href="https://web.facebook.com/inspireecommerce" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></li>
+          <li><a href="https://www.instagram.com/inspire_ecom_solutions/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a></li>
+          <li><a href="https://www.tiktok.com/@inspire_dropshipping" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Inspire E-Commerce Solutions Inc. All rights reserved. &middot; <a href="privacy.html">Privacy Policy</a></span>
+      <span>Metro Manila, Philippines &middot; PH-first. SEA-ready.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile  = matchMedia('(max-width: 768px)').matches;
+const body = document.body;
+const $ = s => document.querySelector(s);
+
+const clamp = (v,a,b) => v<a?a:v>b?b:v;
+const lerp  = (a,b,t) => a+(b-a)*t;
+const smooth = (a,b,v) => { const t=clamp((v-a)/(b-a||1),0,1); return t*t*(3-2*t); };
+const hexC = h => [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+
+/* ---------- elements ---------- */
+const canvas = $('#fx'), ctx = canvas.getContext('2d');
+const heroInner = $('#hero-inner');
+const chaosEl = $('#chaos'), turnEl = $('#turn'), execEl = $('#exec'), proofEl = $('#proof');
+const tEls = {
+  label:$('#t-label'), h:$('#t-h'),
+  l1:$('#t-l1'), l2:$('#t-l2'), l3:$('#t-l3'),
+  enforce:$('#t-enforce'), built:$('#t-built'), chips:$('#t-chips')
+};
+const chaosBeats = [...chaosEl.querySelectorAll('.beat')];
+
+/* film layers (full-bleed scene images for the dark chapters) */
+const film = {
+  hero:  { el: $('#film-hero'),  img: $('#film-hero img')  },
+  chaos: { el: $('#film-chaos'), img: $('#film-chaos img') },
+  turn:  { el: $('#film-turn'),  img: $('#film-turn img')  }
+};
+/* in-flow parallax images (exec scene, splits, doors, focal) */
+const plxItems = [...document.querySelectorAll('.plx-flow')].map(el => ({el, top:0, h:1}));
+/* Fusion panel: floats with a subtle scroll parallax + tilt (desktop only) */
+const fzTilt = $('#fz-tilt');
+
+/* ---------- measurements + background color stops ---------- */
+let vw = innerWidth, vh = innerHeight;
+const dpr = Math.min(devicePixelRatio || 1, 2);
+const M = {};
+let stops = [];
+
+function topOf(el){ return el.getBoundingClientRect().top + scrollY; }
+
+function measure(){
+  vw = innerWidth; vh = innerHeight;
+  canvas.width = vw*dpr; canvas.height = vh*dpr;
+  canvas.style.width = vw+'px'; canvas.style.height = vh+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+
+  M.chaos = { top: topOf(chaosEl), span: Math.max(1, chaosEl.offsetHeight - vh) };
+  M.turn  = { top: topOf(turnEl),  span: Math.max(1, turnEl.offsetHeight  - vh) };
+  M.execTop = topOf(execEl);
+  M.proofTop = topOf(proofEl);
+  M.turnEnd = M.turn.top + M.turn.span;
+
+  /* in-flow parallax metrics (measured once, no rects in the frame loop) */
+  plxItems.forEach(it => {
+    const box = it.el.parentElement;
+    it.top = topOf(box);
+    it.h = Math.max(1, box.offsetHeight);
+  });
+  if (fzTilt){ M.fzTop = topOf(fzTilt); M.fzH = Math.max(1, fzTilt.offsetHeight); }
+
+  /* dark holds through the chaos; lifts to Inspire blue at the turn;
+     stays blue while the white turn copy exits; lands light at the execution scene */
+  stops = [
+    [0,                                '#020B1C'],
+    [M.chaos.top + M.chaos.span*0.72,  '#020B1C'],
+    [M.turn.top  + M.turn.span*0.15,   '#03193C'],
+    [M.turn.top  + M.turn.span*0.48,   '#02306E'],
+    [M.turn.top  + M.turn.span*0.75,   '#004AAD'],
+    [M.turnEnd,                        '#2F66BC'],
+    [M.execTop + vh*0.30,              '#E3EDF7'],
+    [M.execTop + vh*0.95,              '#FAFBFC']
+  ].map(([y,c]) => [y, hexC(c)]);
+}
+
+function sampleBg(y){
+  if (y <= stops[0][0]) return stops[0][1];
+  for (let i=1;i<stops.length;i++){
+    if (y < stops[i][0]){
+      const [y0,c0] = stops[i-1], [y1,c1] = stops[i];
+      const t = (y - y0)/(y1 - y0);
+      return [lerp(c0[0],c1[0],t), lerp(c0[1],c1[1],t), lerp(c0[2],c1[2],t)];
+    }
+  }
+  return stops[stops.length-1][1];
+}
+
+/* ---------- particle field ---------- */
+const PAIN = [
+  'Where is my order?','Late ship warnings','Oversells','Refund disputes',
+  'Ratings dip','Peak day failure','Who owns this?','Fragmented tools',
+  'Slow fulfillment','Inaccurate shipping','Lack of transparency','Backend complexity'
+];
+const GHOSTS = ['Where is my order?','Which one is correct?','Who owns this?'];
+const N_CARDS = mobile ? 6 : 22;
+const N_DOTS  = mobile ? 36 : 110;
+const N_GHOST = mobile ? 3  : 6;
+/* brand-family canvas palette — no red/amber anywhere (CEO call) */
+const ALERT = hexC('#9DB4D0'), AMBER = hexC('#7FD4E8'), CYAN = hexC('#27B7D6'), GRAY = hexC('#96AAC8');
+const cards = [], dots = [], ghosts = [];
+
+function spawn(avoidCenter){
+  let x=0, y=0;
+  for (let i=0;i<9;i++){
+    x = (Math.random()*1.16 - 0.08)*vw;
+    y = (Math.random()*1.08 - 0.04)*vh;
+    if (!avoidCenter || Math.abs(x - vw/2) > vw*0.26 || Math.abs(y - vh*0.45) > vh*0.24) break;
+  }
+  return [x,y];
+}
+
+function initField(){
+  cards.length = dots.length = ghosts.length = 0;
+  const lanes = mobile ? [0.76,0.87] : [0.76,0.84,0.92];
+  for (let i=0;i<N_CARDS;i++){
+    const [x,y] = spawn(true);
+    const label = PAIN[i % PAIN.length].toUpperCase();
+    cards.push({
+      x, y,
+      vx:(Math.random()*36-18), vy:(Math.random()*20-10),
+      rot:(Math.random()*0.10-0.05), ph:Math.random()*100,
+      label, w: label.length*6.6 + 52,
+      dot: i%3===0 ? AMBER : ALERT,
+      lane: lanes[i % lanes.length],
+      slotBase: Math.floor(i / lanes.length) * (mobile ? 215 : 265)
+    });
+  }
+  for (let i=0;i<N_DOTS;i++){
+    const [x,y] = spawn(false);
+    dots.push({
+      x, y, vx:(Math.random()*26-13), vy:(Math.random()*14-7),
+      r: 0.8 + Math.random()*1.1, ph: Math.random()*100,
+      lane: lanes[i % lanes.length] + (Math.random()*0.05 - 0.025)
+    });
+  }
+  for (let i=0;i<N_GHOST;i++){
+    const [x,y] = spawn(true);
+    ghosts.push({
+      text: GHOSTS[i % GHOSTS.length], x, y,
+      size: 13 + Math.random()*8, ph: Math.random()*100,
+      red: i%2===0
+    });
+  }
+}
+
+function measureCardText(){
+  ctx.font = '500 10.5px "JetBrains Mono", monospace';
+  cards.forEach(c => { c.w = ctx.measureText(c.label).width + 56; });
+}
+
+function rr(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function mixC(a,b,t){ return `rgb(${lerp(a[0],b[0],t)|0},${lerp(a[1],b[1],t)|0},${lerp(a[2],b[2],t)|0})`; }
+
+let turnP = 0;
+
+function drawField(dt, t, alphaG, statik){
+  ctx.clearRect(0,0,vw,vh);
+  if (alphaG <= 0.01) return;
+
+  const sweepP = clamp((turnP - 0.06)/0.49, 0, 1); /* slower, readable left-to-right resolve */
+  const sweepX = -160 + sweepP*(vw + 360);
+
+  /* ordered stream lane lines */
+  if (sweepP > 0.02){
+    const lanes = mobile ? [0.76,0.87] : [0.76,0.84,0.92];
+    ctx.strokeStyle = `rgba(39,183,214,${(0.20*sweepP*alphaG).toFixed(3)})`;
+    ctx.lineWidth = 1;
+    lanes.forEach(l => {
+      ctx.beginPath();
+      ctx.moveTo(0, l*vh + 30); ctx.lineTo(Math.min(sweepX, vw), l*vh + 30);
+      ctx.stroke();
+    });
+  }
+
+  /* flickering pain lines (fade out as order arrives) */
+  ctx.textBaseline = 'middle';
+  ghosts.forEach(g => {
+    const fl = statik ? 1 : 0.6 + 0.4*Math.sin(t*0.004 + g.ph*7);
+    let a = (0.10 + 0.10*fl) * (1 - sweepP) * alphaG;
+    if (!statik && Math.sin(t*0.0007 + g.ph*13) > 0.95) a *= 0.15; /* hard dropout */
+    if (a <= 0.005) return;
+    ctx.font = `500 ${g.size}px "JetBrains Mono", monospace`;
+    ctx.fillStyle = g.red ? `rgba(127,212,232,${a.toFixed(3)})` : `rgba(190,205,225,${a.toFixed(3)})`;
+    ctx.fillText(g.text, g.x, g.y);
+  });
+
+  /* dust */
+  dots.forEach(d => {
+    const o = clamp((sweepX - d.x)/180, 0, 1);
+    if (!statik){
+      d.x += lerp(d.vx, 46, o)*dt;
+      d.y += d.vy*(1-o)*dt;
+      if (d.x > vw+30) d.x -= vw+60; if (d.x < -30) d.x += vw+60;
+      if (d.y > vh+30) d.y -= vh+60; if (d.y < -30) d.y += vh+60;
+    }
+    const ry = lerp(d.y, d.lane*vh + 30, o);
+    const a = lerp(0.20, 0.42, o) * alphaG;
+    ctx.fillStyle = o > 0.01 ? `rgba(39,183,214,${a.toFixed(3)})` : `rgba(150,170,200,${a.toFixed(3)})`;
+    ctx.beginPath(); ctx.arc(d.x, ry, d.r, 0, 6.2832); ctx.fill();
+  });
+
+  /* notification cards */
+  ctx.font = '500 10.5px "JetBrains Mono", monospace';
+  cards.forEach(c => {
+    if (!statik){
+      c.x += c.vx*dt; c.y += c.vy*dt;
+      const mx = c.w/2 + 40;
+      if (c.x > vw+mx) c.x -= vw+mx*2; if (c.x < -mx) c.x += vw+mx*2;
+      if (c.y > vh+60) c.y -= vh+120;  if (c.y < -60) c.y += vh+120;
+    }
+    const o = clamp((sweepX - c.x)/140, 0, 1);
+    const e = o*o*(3-2*o);
+    /* ordered slot: uniform conveyor flow along its lane */
+    const span = vw + 530;
+    let sx = ((c.slotBase + t*0.046) % span) - 265;
+    const rx = lerp(c.x, sx, e);
+    const ry = lerp(c.y, c.lane*vh, e);
+    const fl = statik ? 1 : 0.72 + 0.28*Math.sin(t*0.003 + c.ph*9);
+    let aC = (0.66 + 0.30*lerp(fl,1,e)) * alphaG;
+    /* during the turn: unresolved problems (right of the sweep) dim and jitter;
+       resolved cards (left) snap bright into clean cyan lanes */
+    if (turnP > 0.02) aC *= lerp(0.5, 1.15, e);
+    if (!statik && e < 0.5 && Math.sin(t*0.0009 + c.ph*17) > 0.96) aC *= 0.45;
+
+    ctx.save();
+    ctx.translate(rx, ry);
+    ctx.rotate(c.rot*(1-e) + (statik ? 0 : Math.sin(t*0.0006 + c.ph)*0.03*(1-e)));
+    ctx.globalAlpha = clamp(aC, 0, 1);
+    rr(-c.w/2, -22, c.w, 44, 10);
+    ctx.fillStyle = 'rgba(8,22,46,0.92)';
+    ctx.fill();
+    ctx.strokeStyle = e > 0.01 ? `rgba(39,183,214,${(0.18+0.4*e).toFixed(3)})` : 'rgba(157,180,210,0.36)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = mixC(c.dot, CYAN, e);
+    ctx.beginPath(); ctx.arc(-c.w/2 + 19, 0, 3.4, 0, 6.2832); ctx.fill();
+    ctx.fillStyle = mixC(hexC('#C3D4E8'), hexC('#E8F2FB'), e);
+    ctx.fillText(c.label, -c.w/2 + 33, 1);
+    ctx.restore();
+  });
+  ctx.globalAlpha = 1;
+
+  /* cyan sweep line */
+  if (sweepP > 0.001 && sweepP < 0.999){
+    const a = smooth(0,0.06,sweepP) * (1 - smooth(0.93,1,sweepP)) * alphaG;
+    const g = ctx.createLinearGradient(sweepX-130, 0, sweepX+30, 0);
+    g.addColorStop(0,'rgba(39,183,214,0)');
+    g.addColorStop(0.85,`rgba(39,183,214,${(0.22*a).toFixed(3)})`);
+    g.addColorStop(1,'rgba(39,183,214,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(sweepX-130, 0, 160, vh);
+    ctx.fillStyle = `rgba(190,240,250,${(0.9*a).toFixed(3)})`;
+    ctx.fillRect(sweepX-1, 0, 2, vh);
+  }
+}
+
+/* ---------- scroll choreography ---------- */
+function setBeat(el, op, ty){
+  el.style.opacity = op.toFixed(3);
+  el.style.transform = `translateY(${ty.toFixed(1)}px)`;
+}
+
+function updateBeats(beats, m, y){
+  const p = clamp((y - m.top)/m.span, 0, 1);
+  const n = beats.length;
+  beats.forEach((b, i) => {
+    const local = clamp(p*n - i, 0, 1);
+    const inS  = smooth(0, 0.22, local);
+    const outS = i === n-1 ? 0 : smooth(0.78, 1, local);
+    setBeat(b, inS*(1-outS), (1-inS)*36 - outS*36);
+  });
+}
+
+function fadeEl(el, op){
+  el.style.opacity = op.toFixed(3);
+  el.style.transform = `translateY(${((1-op)*22).toFixed(1)}px)`;
+}
+
+/* ---------- film choreography (scene-image cross-fades + parallax) ---------- */
+function setFilm(f, o, ty){
+  f.el.style.opacity = o.toFixed(3);
+  f.el.style.visibility = o > 0.004 ? 'visible' : 'hidden';
+  f.img.style.transform = `translate3d(0,${ty.toFixed(2)}%,0) scale(1.1)`;
+}
+
+function updateFilm(y){
+  /* hero: chaos-dark holds the open, hands off to the warehouse night scene */
+  const heroOut = smooth(vh*0.35, Math.min(vh*1.2, M.chaos.top + M.chaos.span*0.10), y);
+  setFilm(film.hero, 1 - heroOut, Math.min(4, y/vh*4));
+
+  /* chaos chapter: warehouse-dark behind the beats, dissolves into the turn */
+  const cp = clamp((y - M.chaos.top)/M.chaos.span, 0, 1);
+  const cIn  = smooth(M.chaos.top - vh*0.35, M.chaos.top + M.chaos.span*0.10, y);
+  const cOut = smooth(M.chaos.top + M.chaos.span*0.94, M.turn.top + M.turn.span*0.12, y);
+  setFilm(film.chaos, cIn*(1-cOut)*0.92, lerp(-4, 4, cp));
+
+  /* unmount the fixed film once the light world owns the viewport (GPU win) */
+  document.querySelector('.film').style.visibility = (y > M.execTop + vh*1.2) ? 'hidden' : 'visible';
+  /* the turn: fusion-control IS the pivot — arrives EARLY (no flat-blue frame
+     anywhere in the turn range) and holds until the light handoff */
+  const tIn  = smooth(0.0, 0.10, turnP);
+  /* no exit fade: the scene image rides with the copy through the unpin —
+     the next section's own background covers it (film sits at z:0) */
+  setFilm(film.turn, tIn*0.95, lerp(-4, 4, turnP));
+}
+
+/* ---------- in-flow parallax (max ±5.5% inside a 1.12 cover scale) ---------- */
+function updatePlx(y){
+  if (y < M.execTop - vh*1.4) return; /* every in-flow scene sits below the turn */
+  plxItems.forEach(it => {
+    const p = clamp((y + vh - it.top)/(vh + it.h), 0, 1);
+    it.el.style.transform = `translate3d(0,${lerp(-5.5, 5.5, p).toFixed(2)}%,0) scale(1.12)`;
+  });
+}
+
+/* ---------- Fusion panel float: gentle parallax + settling tilt ----------
+   Desktop only (the ≤860px layout stacks the panel full-width and the CSS
+   tilt is disabled there — the JS guard mirrors that breakpoint). */
+function updateFz(y){
+  if (!fzTilt || vw <= 860) return;
+  const p = clamp((y + vh - M.fzTop)/(vh + M.fzH), 0, 1);
+  fzTilt.style.transform =
+    `perspective(1500px) translateY(${lerp(12, -12, p).toFixed(1)}px) rotateX(${lerp(2.2, -0.4, p).toFixed(2)}deg)`;
+}
+
+function updateTurn(y){
+  turnP = clamp((y - M.turn.top)/M.turn.span, 0, 1);
+  /* copy holds almost to the unpin point, then exits while the background is
+     still Inspire blue (white stays readable) — no dead tail before the handoff */
+  /* the copy never fades at the end — it rides the stage out physically as it
+     unpins (same pattern as the chaos act's final beat), so no dead-blue tail */
+  const out = 1;
+  fadeEl(tEls.label,   smooth(0.04,0.10,turnP)*out);
+  fadeEl(tEls.h,       smooth(0.09,0.17,turnP)*out);
+  fadeEl(tEls.l1,      smooth(0.26,0.34,turnP)*out);
+  fadeEl(tEls.l2,      smooth(0.34,0.42,turnP)*out);
+  fadeEl(tEls.l3,      smooth(0.42,0.50,turnP)*out);
+  fadeEl(tEls.enforce, smooth(0.54,0.62,turnP)*out);
+  fadeEl(tEls.built,   smooth(0.62,0.70,turnP)*out);
+  fadeEl(tEls.chips,   smooth(0.68,0.76,turnP)*out);
+}
+
+/* ---------- main loop (rAF; sleeps when canvas is faded and no scroll) ---------- */
+let rafId = null, lastT = 0, dirty = true;
+
+function frame(dt, t){
+  const y = scrollY;
+
+  /* continuous dark → light background */
+  const c = sampleBg(y);
+  body.style.backgroundColor = `rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+  const lum = (0.2126*c[0] + 0.7152*c[1] + 0.0722*c[2]) / 255;
+  body.classList.toggle('on-light', lum > 0.5);
+  body.classList.toggle('scrolled', y > 40);
+
+  /* hero settles back as the chaos chapter takes over */
+  if (y < vh*1.2){
+    const f = 1 - smooth(0, vh*0.72, y);
+    heroInner.style.opacity = f.toFixed(3);
+    heroInner.style.transform = `translateY(${(-y*0.16).toFixed(1)}px)`;
+  }
+
+  updateBeats(chaosBeats, M.chaos, y);
+  updateTurn(y);
+  updateFilm(y);
+  updatePlx(y);
+  updateFz(y);
+
+  /* canvas: holds through the copy exit, dissolved before the light world */
+  /* bubbles exit before the chips arrive (0.68) — no pill-on-pill collision */
+  const alphaG = (1 - smooth(0.48, 0.64, turnP)) * (y < M.turnEnd + vh ? 1 : 0);
+  drawField(dt, t, alphaG, false);
+  return alphaG > 0.01;
+}
+
+function loop(t){
+  const dt = Math.min(0.05, (t - lastT)/1000 || 0.016);
+  lastT = t;
+  const active = frame(dt, t);
+  if ((active && !document.hidden) || dirty){
+    dirty = false;
+    rafId = requestAnimationFrame(loop);
+  } else {
+    rafId = null;
+  }
+}
+function kick(){
+  if (rafId === null){ lastT = performance.now(); rafId = requestAnimationFrame(loop); }
+}
+
+/* ---------- counters ---------- */
+function fmt(v, dec){ return dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-US'); }
+function runCounter(el){
+  const target = parseFloat(el.dataset.target);
+  const dec = parseInt(el.dataset.dec || '0', 10);
+  const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+  if (reduced){ el.textContent = pre + fmt(target, dec) + suf; return; }
+  const t0 = performance.now(), dur = 1150;
+  (function step(t){
+    const k = clamp((t - t0)/dur, 0, 1);
+    const e = 1 - Math.pow(1-k, 3);
+    el.textContent = pre + fmt(target*e, dec) + suf;
+    if (k < 1) requestAnimationFrame(step);
+  })(t0);
+}
+
+/* ---------- init ---------- */
+measure();
+initField();
+
+document.querySelectorAll('[data-count]').forEach(el => {
+  if (reduced){ runCounter(el); return; }
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting){ runCounter(el); io.disconnect(); } });
+  }, {threshold:0.5});
+  io.observe(el);
+});
+
+const revIO = reduced ? null : new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); revIO.unobserve(e.target); } });
+}, {threshold:0.16, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => revIO && revIO.observe(el));
+
+/* mobile menu */
+const burger = $('#navBurger'), mMenu = $('#mobileMenu');
+burger.addEventListener('click', () => {
+  const open = mMenu.hidden;
+  mMenu.hidden = !open;
+  body.classList.toggle('menu-open', open);
+  burger.setAttribute('aria-expanded', String(open));
+});
+mMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mMenu.hidden = true; body.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false');
+}));
+
+/* chapter dots */
+const dotLinks = [...document.querySelectorAll('.dots a')];
+const dotSecs = dotLinks.map(a => document.getElementById(a.dataset.sec));
+function updateDots(){
+  const y = scrollY + innerHeight*0.45;
+  let active = 0;
+  dotSecs.forEach((s, i) => { if (s && y >= s.offsetTop) active = i; });
+  dotLinks.forEach((a, i) => a.classList.toggle('on', i === active));
+}
+addEventListener('scroll', updateDots, {passive:true});
+updateDots();
+
+/* screenshot lightbox (Fusion + TrueTrace shots) */
+const lb = $('#lightbox'), lbImg = $('#lbImg');
+document.querySelectorAll('.shot img').forEach(img => {
+  img.addEventListener('click', () => { lbImg.src = img.currentSrc || img.src; lb.hidden = false; body.style.overflow = 'hidden'; });
+});
+function lbHide(){ lb.hidden = true; lbImg.src = ''; body.style.overflow = ''; }
+$('#lbClose').addEventListener('click', lbHide);
+lb.addEventListener('click', e => { if (e.target !== $('#lbClose')) lbHide(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !lb.hidden) lbHide(); });
+
+const form = $('#meetForm');
+/* ---- multi-step quote flow -> Supabase -> TidyCal ----
+   SUPABASE SETUP (one-time, Supabase dashboard SQL editor):
+     create table public.website_leads (
+       id uuid primary key default gen_random_uuid(),
+       created_at timestamptz default now(),
+       services text[], goods text, monthly_orders text, storage_cbm text,
+       name text, email text, phone text, company text, website text,
+       source text default 'inspire-homepage'
+     );
+     alter table public.website_leads enable row level security;
+     create policy "anon can insert leads" on public.website_leads
+       for insert to anon with check (true);
+   Then fill SB.url + SB.anon with the project URL + anon (publishable) key. */
+const SB = { url: '', anon: '' };
+const TIDYCAL = 'https://tidycal.com/team/sales-bd-department/30-minute-discovery-call';
+const meetBar = $('#meetBar');
+let leadSent = false;
+
+function showStep(n){
+  form.querySelectorAll('.mstep').forEach(s => {
+    const on = +s.dataset.step === n;
+    s.hidden = !on; s.classList.toggle('on', on);
+  });
+  meetBar.style.width = (n*25) + '%';
+  if (n === 4) mountBooking();
+  form.scrollIntoView({behavior:'smooth', block:'center'});
+}
+function vals(){
+  const fd = new FormData(form);
+  return {
+    services: fd.getAll('services'),
+    goods: (fd.get('goods')||'').trim(),
+    monthly_orders: fd.get('monthly_orders')||'',
+    storage_cbm: fd.get('storage_cbm')||'',
+    name: (fd.get('name')||'').trim(),
+    email: (fd.get('email')||'').trim(),
+    phone: (fd.get('phone')||'').trim(),
+    company: (fd.get('company')||'').trim(),
+    website: (fd.get('website')||'').trim()
+  };
+}
+/* technology-only inquiries skip the storage question */
+form.querySelectorAll('input[name="services"]').forEach(c => c.addEventListener('change', () => {
+  const wf = vals().services.some(s => s.indexOf('Warehousing') === 0);
+  form.querySelector('[data-wf-only]').style.display = wf ? '' : 'none';
+}));
+form.querySelectorAll('.m-next').forEach(b => b.addEventListener('click', () => {
+  const go = +b.dataset.go, v = vals();
+  if (go === 2){
+    const ok = v.services.length > 0;
+    $('#err1').hidden = ok; if (!ok) return;
+  }
+  if (go === 3){
+    const ok = !!(v.goods && v.monthly_orders);
+    $('#err2').hidden = ok; if (!ok) return;
+  }
+  showStep(go);
+}));
+form.querySelectorAll('.m-back').forEach(b => b.addEventListener('click', () => showStep(+b.dataset.go)));
+
+async function saveLead(v){
+  if (leadSent) return;
+  if (!SB.url || !SB.anon){
+    try { localStorage.setItem('inspire-lead-' + Date.now(), JSON.stringify(v)); } catch(_) {}
+    leadSent = true; return;
+  }
+  try {
+    await fetch(SB.url + '/rest/v1/website_leads', {
+      method:'POST',
+      headers:{ apikey: SB.anon, Authorization: 'Bearer ' + SB.anon, 'Content-Type':'application/json', Prefer:'return=minimal' },
+      body: JSON.stringify(v)
+    });
+    leadSent = true;
+  } catch(_) {
+    try { localStorage.setItem('inspire-lead-' + Date.now(), JSON.stringify(v)); } catch(__){}
+  }
+}
+function mountBooking(){
+  const wrap = $('#bookFrame');
+  if (wrap.querySelector('iframe')) return;
+  const v = vals();
+  const q = '?name=' + encodeURIComponent(v.name) + '&email=' + encodeURIComponent(v.email);
+  const ifr = document.createElement('iframe');
+  ifr.src = TIDYCAL + q;
+  ifr.title = 'Book a 30-minute discovery call';
+  ifr.loading = 'lazy';
+  wrap.appendChild(ifr);
+  $('#bookLink').href = TIDYCAL + q;
+}
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const v = vals();
+  const ok = !!(v.name && /.+@.+\..+/.test(v.email) && v.phone && v.company);
+  $('#err3').hidden = ok; if (!ok) return;
+  $('#meetSubmit').disabled = true;
+  await saveLead(v);
+  $('#meetSubmit').disabled = false;
+  showStep(4);
+});
+
+/* ---------- deferred film images (only the hero image loads in the initial viewport) ---------- */
+function loadFilm(){
+  document.querySelectorAll('.film-layer img[data-src]').forEach(img => {
+    img.src = img.dataset.src;
+    img.removeAttribute('data-src');
+  });
+}
+if (!reduced){
+  if (document.readyState === 'complete') loadFilm();
+  else addEventListener('load', loadFilm, {once:true});
+}
+/* under reduced motion the chaos/turn scenes use static CSS background images instead */
+
+/* ---------- native video bands: poster-first, fail-safe ----------
+   No third-party players, no sound, no controls anywhere. The mp4 clips may
+   not exist yet (rendering) — any video/source error flags the wrapper with
+   .vid-fail so the poster image holds the band and the page stays perfect.
+   Under prefers-reduced-motion, autoplay is stripped and CSS keeps the posters. */
+document.querySelectorAll('.vb-media video').forEach(v => {
+  const wrap = v.closest('.vb-media');
+  const fail = () => wrap.classList.add('vid-fail');
+  v.addEventListener('error', fail);
+  /* multi-source fallback chains: only the LAST source erroring means
+     no candidate worked — earlier sources may 404 by design */
+  const sources = v.querySelectorAll('source');
+  if (sources.length) sources[sources.length-1].addEventListener('error', fail);
+  /* the failure may have settled before this script ran (NETWORK_NO_SOURCE = 3) */
+  if (v.error || v.networkState === 3) fail();
+  if (reduced){
+    v.removeAttribute('autoplay');
+    try { v.pause(); } catch(_) {}
+  } else {
+    /* guarantee playback: browsers may not start offscreen autoplay videos —
+       play when ≥25% visible, pause when hidden (also saves battery) */
+    new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (e.isIntersecting){ v.play().catch(()=>{}); }
+        else { try { v.pause(); } catch(_) {} }
+      });
+    }, {threshold:0.25}).observe(v);
+  }
+});
+
+if (reduced){
+  /* composed static states: one drawn frame behind the hero, nav swaps at the turn */
+  turnP = 0;
+  drawField(0, 0, 1, true);
+  const navSwap = () => {
+    const turnBottom = topOf(turnEl) + turnEl.offsetHeight;
+    body.classList.toggle('on-light', scrollY + 70 > turnBottom);
+    body.classList.toggle('scrolled', scrollY > 40);
+  };
+  addEventListener('scroll', navSwap, {passive:true});
+  addEventListener('resize', navSwap, {passive:true});
+  navSwap();
+  document.fonts.ready.then(() => { measureCardText(); drawField(0, 0, 1, true); });
+} else {
+  addEventListener('scroll', () => { dirty = true; kick(); }, {passive:true});
+  addEventListener('resize', () => { measure(); dirty = true; kick(); }, {passive:true});
+  document.addEventListener('visibilitychange', () => { if (!document.hidden){ dirty = true; kick(); } });
+  document.fonts.ready.then(() => { measureCardText(); dirty = true; kick(); });
+  kick();
+}
+/* trusted-partners marquee: duplicate the track once for a seamless loop */
+document.querySelectorAll('.lmq-track').forEach(t => { if (!reduced) t.innerHTML += t.innerHTML; });
+})();
+</script>
+</body>
+</html>
