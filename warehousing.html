@@ -414,12 +414,6 @@ body.scrolled .scroll-cue{opacity:0}
   margin:0;background:#fff;border:1px solid var(--line);border-radius:16px;
   overflow:hidden;box-shadow:0 34px 70px -42px rgba(2,20,50,.45);
 }
-.shot-bar{
-  display:flex;align-items:center;gap:6px;padding:11px 14px;
-  border-bottom:1px solid var(--line);background:#F7F9FC;
-}
-.shot-bar i{width:9px;height:9px;border-radius:50%;background:#DCE4EE}
-.shot-bar span{margin-left:8px;font:500 10.5px/1 var(--mono);letter-spacing:.06em;color:var(--ink-soft)}
 .shot img{display:block;width:100%;height:auto}
 .fz-note{
   margin-top:20px;text-align:center;
@@ -1084,8 +1078,6 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
   box-shadow:0 48px 100px -34px rgba(0,6,24,.85);
   transform:translate(-50%,-50%) translate3d(var(--tx,0px),var(--ty,0px),var(--tz,0px)) rotateY(var(--ry,0deg)) scale(var(--sc,1));
   transition:transform .6s cubic-bezier(.3,.85,.3,1),opacity .5s ease,box-shadow .4s ease}
-.fz-card .shot-bar{background:#0d1b34;border-bottom:1px solid rgba(255,255,255,.06)}
-.fz-card .shot-bar span{color:rgba(205,217,232,.7)}
 .fz-card img{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
 .fz-card[data-pos="0"]{--tx:0px;--ty:0px;--tz:140px;--ry:0deg;--sc:1;z-index:5;cursor:default}
 .fz-card[data-pos="1"]{--tx:338px;--ty:16px;--tz:0px;--ry:-25deg;--sc:.7;z-index:3;opacity:.92}
@@ -1592,7 +1584,6 @@ body.inner{color:var(--ink);background-color:#f5f8fc;
       </div>
       <div class="split rev">
         <figure class="shot reveal">
-          <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>fusion &mdash; Orders &middot; pending &middot; out for delivery &middot; in transit &middot; delivered</span></div>
           <img src="assets/generated/Proof.png" alt="The Fusion order tab: every order status, pending, out for delivery, in transit and delivered, visible to you in real time" width="2974" height="1606" loading="lazy" decoding="async">
         </figure>
         <div class="split-copy reveal d1">
